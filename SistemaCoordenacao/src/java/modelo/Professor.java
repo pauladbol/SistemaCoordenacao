@@ -11,5 +11,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name="professor")
 public class Professor extends Usuario{
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
 }

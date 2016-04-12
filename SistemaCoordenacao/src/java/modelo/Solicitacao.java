@@ -6,21 +6,15 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="aluno")
-public class Aluno extends Usuario{
+@Table(name="solicitacao")
+public class Solicitacao {
+    @Id
+    @GeneratedValue
     private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
     
 }
