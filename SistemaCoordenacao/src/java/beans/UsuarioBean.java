@@ -6,6 +6,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import modelo.Usuario;
 import persistencia.UsuarioDAO;
+import modelo.Aluno;
 
 /**
  *
@@ -13,10 +14,11 @@ import persistencia.UsuarioDAO;
  */
 
 @ManagedBean(name="beanUsuario")
-@RequestScoped
+@SessionScoped
 public class UsuarioBean {
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
+    String tipoUsuario;
     
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
@@ -31,7 +33,7 @@ public class UsuarioBean {
     }
     
     public void autentica(){
-        usuario = dao.autentica(usuario.getMatricula());
+        usuario = dao.autentica(usuario.getMatricula(), tipoUsuario);
     }
     
     @PreDestroy
