@@ -5,9 +5,13 @@
  */
 package beans;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import modelo.Professor;
 import persistencia.ProfessorDAO;
 
+@ManagedBean(name="professorBean")
+@RequestScoped
 public class ProfessorBean {
     Professor professor = new Professor();
     ProfessorDAO dao = new ProfessorDAO();
@@ -18,5 +22,9 @@ public class ProfessorBean {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+    
+    public Professor carrega(){
+        return dao.carregar(professor.getId());
     }
 }

@@ -16,5 +16,59 @@ public class Solicitacao {
     @Id
     @GeneratedValue
     private int id;
+    private int protocolo;
+    private String tipo;
+    private String estado;
+    private String observacao;
+    private String justificativa;
+  
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }    
+
+    public int getProtocolo() {
+        return protocolo;
+    }
+
+    public void setProtocolo(int protocolo) {
+        this.protocolo = protocolo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
+    }
+    
     
 }

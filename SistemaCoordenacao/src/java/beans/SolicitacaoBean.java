@@ -6,9 +6,13 @@
 package beans;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import modelo.Solicitacao;
 import persistencia.SolicitacaoDAO;
 
+@ManagedBean(name="solicitacaoBean")
+@RequestScoped
 public class SolicitacaoBean {
     Solicitacao solicitacao = new Solicitacao();
     SolicitacaoDAO dao = new SolicitacaoDAO();
@@ -23,5 +27,9 @@ public class SolicitacaoBean {
 
     public void salvar() {
         dao.salvar(solicitacao);
+    }
+    
+    public Solicitacao carrega(){
+        return dao.carregar(solicitacao.getId());
     }
 }

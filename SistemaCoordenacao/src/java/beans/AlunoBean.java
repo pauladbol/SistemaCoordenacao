@@ -5,9 +5,13 @@
  */
 package beans;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import modelo.Aluno;
 import persistencia.AlunoDAO;
 
+@ManagedBean(name="alunoBean")
+@RequestScoped
 public class AlunoBean {
     Aluno aluno = new Aluno();
     AlunoDAO dao = new AlunoDAO();

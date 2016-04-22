@@ -6,21 +6,12 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="aluno")
+@PrimaryKeyJoinColumn(name="id")
 public class Aluno extends Usuario{
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
     
 }

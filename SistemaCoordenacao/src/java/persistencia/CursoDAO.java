@@ -5,23 +5,18 @@
  */
 package persistencia;
 
-import java.util.List;
-import modelo.Disciplina;
+import modelo.Curso;
 import org.hibernate.Session;
 
-public class DisciplinaDAO {
+public class CursoDAO {
     private Session sessao;
     
-    public DisciplinaDAO() {
+    public CursoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
         sessao.beginTransaction();
     }
     
-    public Disciplina carregar(int id) {
-        return (Disciplina) sessao.load(Disciplina.class, id);
+    public Curso carregar(int id) {
+        return (Curso) sessao.load(Curso.class, id);
     }
-    
-    public List<Disciplina> listar() {
-        return sessao.createCriteria(Disciplina.class).list();
-    } 
 }

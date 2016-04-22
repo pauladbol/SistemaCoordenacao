@@ -5,23 +5,22 @@
  */
 package modelo;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="disciplina")
-public class Disciplina {
+public class Curso {
     @Id
     @GeneratedValue
     private int id;
     private String nome;
-    private String ementa;
 
     public int getId() {
         return id;
-    } 
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -30,13 +29,6 @@ public class Disciplina {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getEmenta() {
-        return ementa;
-    }
-
-    public void setEmenta(String ementa) {
-        this.ementa = ementa;
-    }
+    
     
 }

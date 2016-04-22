@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="padraoInterno.xhtml">
         <ui:define name="titulo">
             Nova Solicitação
@@ -17,7 +18,17 @@ and open the template in the editor.
             <p:messages/>
             <h:form>
                 <p:panelGrid columns="2">
-                   
+                    <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
+                    <p:selectOneMenu id="tipo" value="#{solicitacaoBean.solicitacao.tipo}" style="width:125px">
+                        <f:selectItem itemLabel="Selecione um tipo de solicitação" itemValue="" />
+                        <f:selectItem itemLabel="aproveitamento" itemValue="Aproveitamento de estudos" />
+                        <f:selectItem itemLabel="certificacao" itemValue="Certificação de conhecimentos" />
+                    </p:selectOneMenu>
+                    <p:outputLabel for="disciplina" value="Disciplina:" />
+                    <p:selectOneMenu id="disciplina" value="#{disciplinaBean.listaDisciplinas}" var="disciplina" style="width:125px">
+                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
+                        <f:selectItem itemLabel="#{disciplina.nome}" itemValue="#{disciplina.id}" />
+                    </p:selectOneMenu>
                 </p:panelGrid>
             </h:form>
         </ui:define>
