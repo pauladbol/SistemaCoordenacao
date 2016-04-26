@@ -10,6 +10,8 @@
             <h:outputLabel value="Matrícula" for="campoMatricula"/>
             <h:inputText id="campoMatricula" maxlength="60" required="true" value="#{UsuarioBean.usuario.matricula}"/>
             <h:commandButton value="Log in" actionListener="#{UsuarioBean.autentica}"/>
+            
+            <h:button outcome="periodoSolicitacao.xhtml" value="Abrir Periodo de Solicitação"></h:button>
         </h:form>
     </h:body>
 </html>
