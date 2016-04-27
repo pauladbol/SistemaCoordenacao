@@ -5,22 +5,22 @@
  */
 package persistencia;
 
-import modelo.Solicitacao;
+import modelo.Documento;
 import org.hibernate.Session;
 
-public class SolicitacaoDAO {
+public class DocumentoDAO {
     private Session sessao;
     
-    public SolicitacaoDAO() {
+    public DocumentoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
         sessao.beginTransaction();
     }
     
-    public Solicitacao carregar(int id) {
-        return (Solicitacao) sessao.load(Solicitacao.class, id);
+    public Documento carregar(int id) {
+        return (Documento) sessao.load(Documento.class, id);
     }
     
-    public void salvar(Solicitacao solicitacao) {
-        sessao.saveOrUpdate(solicitacao);
+    public void salvar(Documento documento) {
+        sessao.saveOrUpdate(documento);
     }
 }

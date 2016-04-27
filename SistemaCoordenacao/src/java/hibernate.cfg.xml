@@ -7,5 +7,12 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SistemaCoordenacao?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping class="modelo.Solicitacao"/>
+    <mapping class="modelo.Disciplina"/>
+    <mapping class="modelo.Documento"/>
+    <mapping class="modelo.Aluno"/>
+    <mapping class="modelo.Curso"/>
+    <mapping class="modelo.Professor"/>
+    <mapping class="modelo.Usuario"/>
   </session-factory>
 </hibernate-configuration>

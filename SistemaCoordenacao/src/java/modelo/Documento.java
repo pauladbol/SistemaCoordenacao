@@ -5,32 +5,26 @@
  */
 package modelo;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="disciplina")
-public class Disciplina {
+@Table(name="documento")
+public class Documento {
     @Id
     @GeneratedValue
     private int id;
     private String nome;
-    private String ementa;
+    private long tamanho;
+    @Lob
+    private byte[] arquivo;
 
-    @ManyToMany(mappedBy="disciplinas")
-    private Set<Curso> cursos = new HashSet<Curso>();
-    
     public int getId() {
         return id;
-    } 
+    }
 
     public String getNome() {
         return nome;
@@ -40,12 +34,21 @@ public class Disciplina {
         this.nome = nome;
     }
 
-    public String getEmenta() {
-        return ementa;
+    public long getTamanho() {
+        return tamanho;
     }
 
-    public void setEmenta(String ementa) {
-        this.ementa = ementa;
+    public void setTamanho(long tamanho) {
+        this.tamanho = tamanho;
     }
+
+    public byte[] getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(byte[] arquivo) {
+        this.arquivo = arquivo;
+    }
+    
     
 }

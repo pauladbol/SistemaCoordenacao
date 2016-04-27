@@ -15,9 +15,5 @@ import javax.persistence.Table;
 @Table(name="aluno")
 @PrimaryKeyJoinColumn(name="id")
 public class Aluno extends Usuario{
-    
-    @OneToOne(mappedBy="solicitacao")
-    @JoinColumn(name="aluno")
-    private Solicitacao solicitacao;
-    
+        
 }
