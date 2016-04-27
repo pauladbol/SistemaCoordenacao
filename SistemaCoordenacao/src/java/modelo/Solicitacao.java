@@ -8,6 +8,8 @@ package modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +23,15 @@ public class Solicitacao {
     private String estado;
     private String observacao;
     private String justificativa;
+    
+    @OneToOne
+    @JoinColumn(name="disciplina")
+    private Disciplina disciplina;
   
+    @OneToOne
+    @JoinColumn(name="aluno")
+    private Aluno aluno;
+    
     public int getId() {
         return id;
     }

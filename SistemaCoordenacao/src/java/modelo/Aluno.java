@@ -6,6 +6,8 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -13,5 +15,9 @@ import javax.persistence.Table;
 @Table(name="aluno")
 @PrimaryKeyJoinColumn(name="id")
 public class Aluno extends Usuario{
+    
+    @OneToOne(mappedBy="solicitacao")
+    @JoinColumn(name="aluno")
+    private Solicitacao solicitacao;
     
 }

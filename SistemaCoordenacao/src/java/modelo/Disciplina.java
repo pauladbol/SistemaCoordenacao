@@ -5,9 +5,15 @@
  */
 package modelo;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +25,14 @@ public class Disciplina {
     private String nome;
     private String ementa;
 
+    @ManyToMany(mappedBy="disciplinas")
+    private Set<Curso> cursos = new HashSet<Curso>();
+    
+    
+    @OneToOne(mappedBy="solicitacao")
+    @JoinColumn(name="disciplina")
+    private Solicitacao solicitacao;
+    
     public int getId() {
         return id;
     } 

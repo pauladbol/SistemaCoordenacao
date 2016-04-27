@@ -8,6 +8,7 @@ package beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import modelo.Disciplina;
 import modelo.Solicitacao;
 import persistencia.SolicitacaoDAO;
 
@@ -16,7 +17,8 @@ import persistencia.SolicitacaoDAO;
 public class SolicitacaoBean {
     Solicitacao solicitacao = new Solicitacao();
     SolicitacaoDAO dao = new SolicitacaoDAO();
-
+    Disciplina disciplina = new Disciplina();
+    
     public Solicitacao getSolicitacao() {
         return solicitacao;
     }
@@ -25,6 +27,15 @@ public class SolicitacaoBean {
         this.solicitacao = solicitacao;
     }
 
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    
     public void salvar() {
         dao.salvar(solicitacao);
     }

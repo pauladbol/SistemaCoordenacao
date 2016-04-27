@@ -5,15 +5,31 @@
  */
 package modelo;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="curso")
 public class Curso {
     @Id
     @GeneratedValue
     private int id;
     private String nome;
+    
+    @ManyToMany()
+    @JoinTable(name = "DisciplinaCurso", joinColumns = { 
+			@JoinColumn(name = "curso_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
 
+    private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+    
     public int getId() {
         return id;
     }

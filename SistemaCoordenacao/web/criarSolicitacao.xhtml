@@ -19,15 +19,15 @@ and open the template in the editor.
             <h:form>
                 <p:panelGrid columns="2">
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
-                    <p:selectOneMenu id="tipo" value="#{solicitacaoBean.solicitacao.tipo}" style="width:125px">
+                    <p:selectOneMenu id="tipo" value="#{solicitacaoBean.solicitacao.tipo}" style="width:300px">
                         <f:selectItem itemLabel="Selecione um tipo de solicitação" itemValue="" />
-                        <f:selectItem itemLabel="aproveitamento" itemValue="Aproveitamento de estudos" />
-                        <f:selectItem itemLabel="certificacao" itemValue="Certificação de conhecimentos" />
+                        <f:selectItem itemLabel="Aproveitamento de estudos" itemValue="aproveitamento" />
+                        <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <p:selectOneMenu id="disciplina" value="#{disciplinaBean.listaDisciplinas}" var="disciplina" style="width:125px">
+                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.disciplina}" style="width:300px">
                         <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
-                        <f:selectItem itemLabel="#{disciplina.nome}" itemValue="#{disciplina.id}" />
+                        <f:selectItems itemLabel="#{disciplinaBean.listaDisciplinas}" />
                     </p:selectOneMenu>
                 </p:panelGrid>
             </h:form>

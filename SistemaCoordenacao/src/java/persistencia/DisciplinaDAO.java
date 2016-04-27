@@ -24,4 +24,8 @@ public class DisciplinaDAO {
     public List<Disciplina> listar() {
         return sessao.createCriteria(Disciplina.class).list();
     } 
+    
+    public void salvar(Disciplina disciplina) {
+        sessao.saveOrUpdate(disciplina);
+    }
 }
