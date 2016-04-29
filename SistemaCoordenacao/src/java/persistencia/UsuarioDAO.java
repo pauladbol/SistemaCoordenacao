@@ -8,7 +8,6 @@ public class UsuarioDAO {
     
     public UsuarioDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        sessao.beginTransaction();
     }
     
     public Usuario carregar(int matricula) {

@@ -25,9 +25,9 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.disciplina}" style="width:300px">
-                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
-                        <f:selectItems itemLabel="#{disciplinaBean.listaDisciplinas}" />
+                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina}" style="width:300px">
+                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue="null" />
+                        <f:selectItems value="#{disciplinaBean.listaDisciplinas}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina.id}"/>
                     </p:selectOneMenu>
                     
                     <p:growl id="messages" showDetail="true"/>

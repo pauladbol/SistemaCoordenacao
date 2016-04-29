@@ -75,6 +75,5 @@ public class PeriodoSolicitacao implements Serializable {
         periodo.setDataFim(new Date());
         periodo.setEstado(true);
         dao.criar(periodo);
-        dao.encerrarSessao();
     }
 }

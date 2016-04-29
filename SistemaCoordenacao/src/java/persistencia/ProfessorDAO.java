@@ -13,7 +13,6 @@ public class ProfessorDAO {
     
     public ProfessorDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        sessao.beginTransaction();
     }
     
     public Professor carregar(int id) {

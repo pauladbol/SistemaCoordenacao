@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,11 +26,11 @@ public class Solicitacao {
     private String observacao;
     private String justificativa;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="disciplina")
     private Disciplina disciplina;
   
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="aluno")
     private Aluno aluno;
     
@@ -78,6 +80,22 @@ public class Solicitacao {
 
     public void setJustificativa(String justificativa) {
         this.justificativa = justificativa;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
     
     

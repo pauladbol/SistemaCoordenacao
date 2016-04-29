@@ -13,7 +13,6 @@ public class DocumentoDAO {
     
     public DocumentoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        sessao.beginTransaction();
     }
     
     public Documento carregar(int id) {

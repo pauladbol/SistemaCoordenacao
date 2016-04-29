@@ -14,7 +14,6 @@ public class DisciplinaDAO {
     
     public DisciplinaDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        sessao.beginTransaction();
     }
     
     public Disciplina carregar(int id) {

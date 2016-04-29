@@ -18,7 +18,6 @@ private final Session sessao;
     
     public PeriodoSolicitacaoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        sessao.beginTransaction();
     }
     
     public PeriodoSolicitacao buscar() {
@@ -28,10 +27,6 @@ private final Session sessao;
     
     public void criar(PeriodoSolicitacao p){
         sessao.save(p);
-    }
-    
-    public void encerrarSessao() {
-        sessao.close();
     }
 //create periodo solicitacao
     
