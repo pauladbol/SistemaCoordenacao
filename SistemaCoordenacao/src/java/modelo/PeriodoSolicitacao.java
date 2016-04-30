@@ -7,12 +7,15 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.Type;
 import persistencia.PeriodoSolicitacaoDAO;
 
 /**
@@ -22,16 +25,20 @@ import persistencia.PeriodoSolicitacaoDAO;
 @Entity
 @Table(name="periodosolicitacao")
 public class PeriodoSolicitacao implements Serializable {
+
+    public PeriodoSolicitacao() {
+        this.estado = true;
+    }
     
     @Id
     @GeneratedValue
     private int id;
     
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(name="data_inicio")
+    @Type(type="timestamp")
     private Date dataInicio;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(name="data_fim")
+    @Type(type="timestamp")
     private Date dataFim;
     private boolean estado;
 
@@ -73,7 +80,7 @@ public class PeriodoSolicitacao implements Serializable {
         
         periodo.setDataInicio(new Date());
         periodo.setDataFim(new Date());
-        periodo.setEstado(true);
         dao.criar(periodo);
+        System.out.println("fim");
     }
 }
