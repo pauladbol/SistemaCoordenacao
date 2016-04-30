@@ -89,14 +89,5 @@ public class Solicitacao {
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-    
     
 }

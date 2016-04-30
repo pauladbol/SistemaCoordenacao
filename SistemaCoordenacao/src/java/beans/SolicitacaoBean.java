@@ -17,7 +17,6 @@ import persistencia.SolicitacaoDAO;
 public class SolicitacaoBean {
     Solicitacao solicitacao = new Solicitacao();
     SolicitacaoDAO dao = new SolicitacaoDAO();
-    Disciplina disciplina = new Disciplina();
     
     public Solicitacao getSolicitacao() {
         return solicitacao;
@@ -25,14 +24,6 @@ public class SolicitacaoBean {
 
     public void setSolicitacao(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
-    }
-
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
     }
 
     
