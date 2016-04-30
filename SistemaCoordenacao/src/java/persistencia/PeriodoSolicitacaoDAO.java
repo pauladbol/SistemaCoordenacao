@@ -7,6 +7,7 @@ package persistencia;
 
 import modelo.PeriodoSolicitacao;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -17,16 +18,18 @@ public class PeriodoSolicitacaoDAO {
 private final Session sessao;
     
     public PeriodoSolicitacaoDAO() {
-        sessao = HibernateUtil.getSessionFactory().getCurrentSession();
+        this.sessao = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
     public PeriodoSolicitacao buscar() {
-        return (PeriodoSolicitacao) sessao
+        return (PeriodoSolicitacao) this.sessao
             .createQuery("select * from periodosolicitacao where estado = 'A'").uniqueResult();
     }
     
     public void criar(PeriodoSolicitacao p){
-        sessao.save(p);
+        Transaction t = this.sessao.beginTransaction();
+        this.sessao.save(p);
+        t.commit();
     }
 //create periodo solicitacao
     
