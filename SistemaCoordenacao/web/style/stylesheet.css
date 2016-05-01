@@ -1,0 +1,40 @@
+.ui-layout-north, .ui-layout-center {                    
+    overflow:hidden !important;
+    border: 0px;
+}
+
+.ui-layout-north .ui-layout-unit-content, .ui-layout-center .ui-layout-unit-content {
+    overflow:hidden !important;
+}
+
+.ui-layout-unit-content table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left !important;
+}
+
+.layout-body-small {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 40% !important;
+    height: 200px !important;
+    padding: 5% !important;
+    text-align: center;
+}
+
+.layout-body-larger {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 5% !important;
+    text-align: center;
+    min-height: 300px;
+}
+
+.header {
+    width: 100%;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+}

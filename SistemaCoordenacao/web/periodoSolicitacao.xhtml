@@ -10,16 +10,20 @@
             Abrir Período de Solicitação
         </ui:define>
         <ui:define name="conteudo">
-            <h:form>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Data de ínicio:"/>
-                    <p:calendar value="#{periodoBean.dataInicio}"/>
-                    <p:outputLabel value="Data de fim:"/>
-                    <p:calendar value="#{periodoBean.dataFim}"/>
-                </h:panelGrid>
-                <p:commandButton ajax="false" value="Salvar" actionListener="#{periodoBean.criarPeriodo()}" />
-                <p:commandButton ajax="false" value="Limpar"/>
-            </h:form>
+            <div class="layout-body-small">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Data de ínicio:"/>
+                        <p:calendar value="#{periodoBean.dataInicio}"/>
+                        <p:outputLabel value="Data de fim:"/>
+                        <p:calendar value="#{periodoBean.dataFim}"/>
+                    </h:panelGrid>
+                    <br/>
+                    <br/>
+                    <p:commandButton ajax="false" value="Salvar" actionListener="#{periodoBean.criarPeriodo()}" />
+                    <p:commandButton ajax="false" value="Cancelar" action="index"/>
+                </h:form>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

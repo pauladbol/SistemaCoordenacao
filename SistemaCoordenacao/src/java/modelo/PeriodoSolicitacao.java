@@ -73,14 +73,4 @@ public class PeriodoSolicitacao implements Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    public static void main(String[] args) {
-        PeriodoSolicitacaoDAO dao = new PeriodoSolicitacaoDAO();
-        PeriodoSolicitacao periodo = new PeriodoSolicitacao();
-        
-        periodo.setDataInicio(new Date());
-        periodo.setDataFim(new Date());
-        dao.criar(periodo);
-        System.out.println("fim");
-    }
 }
