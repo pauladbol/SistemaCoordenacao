@@ -31,8 +31,8 @@ public class Solicitacao {
     private Disciplina disciplina;
   
     @ManyToOne
-    @JoinColumn(name="aluno")
-    private Aluno aluno;
+    @JoinColumn(name="usuario")
+    private Usuario usuario;
     
     public int getId() {
         return id;
