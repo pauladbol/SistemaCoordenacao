@@ -10,9 +10,7 @@
     <mapping class="modelo.Solicitacao"/>
     <mapping class="modelo.Disciplina"/>
     <mapping class="modelo.Documento"/>
-    <mapping class="modelo.Aluno"/>
     <mapping class="modelo.Curso"/>
-    <mapping class="modelo.Professor"/>
     <mapping class="modelo.Usuario"/>
     <mapping class="modelo.PeriodoSolicitacao"/>
   </session-factory>

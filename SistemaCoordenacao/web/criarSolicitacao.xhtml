@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:composition template="padraoInterno.xhtml">
+    <ui:composition template="layout.xhtml">
         <ui:define name="titulo">
             Nova Solicitação
         </ui:define>
@@ -25,16 +25,15 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina}" style="width:300px">
+                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina}" style="width:300px" >
                         <f:selectItem itemLabel="Selecione uma disciplina" itemValue="null" />
-                        <f:selectItems value="#{disciplinaBean.listaDisciplinas}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina.id}"/>
+                        <f:selectItems value="#{disciplinaBean.listaDisciplinas}"/>
                     </p:selectOneMenu>
                     
                     <p:growl id="messages" showDetail="true"/>
                     <p:fileUpload value="#{documentoBean.file}" mode="simple"/>
                     
-                    <p:commandButton value="Enviar" ajax="false" actionListener="#{documentoBean.upload}"/>
-                    
+                    <p:commandButton value="Enviar" ajax="false" actionListener="#{documentoBean.upload}"/>   
                 </p:panelGrid>
             </h:form>
         </ui:define>

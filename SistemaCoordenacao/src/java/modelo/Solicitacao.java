@@ -31,8 +31,8 @@ public class Solicitacao {
     private Disciplina disciplina;
   
     @ManyToOne
-    @JoinColumn(name="aluno")
-    private Aluno aluno;
+    @JoinColumn(name="usuario")
+    private Usuario usuario;
     
     public int getId() {
         return id;
@@ -89,14 +89,5 @@ public class Solicitacao {
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-    
     
 }

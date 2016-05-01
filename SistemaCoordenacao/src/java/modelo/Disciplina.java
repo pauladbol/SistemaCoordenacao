@@ -48,4 +48,7 @@ public class Disciplina {
         this.ementa = ementa;
     }
     
+    public String toString() {
+        return this.nome;
+    }
 }
