@@ -31,12 +31,9 @@ public class FiltroTransacaoHibernate implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        //Transaction t = HibernateUtil.getSessionFactory().getCurrentSession().getTransaction();
-        //if(t == null)
-            HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+        HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
         chain.doFilter(request, response);
-        //if(t != null)
-            HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
+        HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
     }
 
     @Override
