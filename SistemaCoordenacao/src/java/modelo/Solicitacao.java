@@ -24,7 +24,7 @@ public class Solicitacao {
     private String tipo;
     private String estado;
     private String observacao;
-    private String jutificativa;
+    private String justificativa;
     private String nome_disciplina;
     
 //    @ManyToOne
@@ -75,12 +75,12 @@ public class Solicitacao {
         this.observacao = observacao;
     }
 
-    public String getJutificativa() {
-        return jutificativa;
+    public String getJustificativa() {
+        return justificativa;
     }
 
-    public void setJutificativa(String justificativa) {
-        this.jutificativa = justificativa;
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
     }
 
     
