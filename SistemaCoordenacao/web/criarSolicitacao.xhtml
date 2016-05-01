@@ -25,15 +25,19 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina}" style="width:300px" >
-                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue="null" />
-                        <f:selectItems value="#{disciplinaBean.listaDisciplinas}"/>
+                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.nome_disciplina}" style="width:300px" >
+                        <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
+                        <f:selectItem itemLabel="Desenvolvimento de Sistemas 1" itemValue="Desenvolvimento de Sistemas 1" />
+                        <f:selectItem itemLabel="Análise e Projeto de Sistemas" itemValue="Análise e Projeto de Sistemas" />
+                        <f:selectItem itemLabel="Português Instrumental" itemValue="Português Instrumental" />
+                        <f:selectItem itemLabel="Programação 2" itemValue="Programação 2" />
+                        <f:selectItem itemLabel="Inglês Instrumental" itemValue="Inglês Instrumental" />
+<!--                        <f:selectItems value="{disciplinaBean.listaDisciplinas}"/>-->
                     </p:selectOneMenu>
-                    
-                    <p:growl id="messages" showDetail="true"/>
-                    <p:fileUpload value="#{documentoBean.file}" mode="simple"/>
-                    
-                    <p:commandButton value="Enviar" ajax="false" actionListener="#{documentoBean.upload}"/>   
+                    <p:outputLabel for="anexo" value="Anexo:" />
+                    <p:fileUpload id="anexo" value="#{documentoBean.file}" mode="simple"/>
+                      
+                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.salvar()}"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>

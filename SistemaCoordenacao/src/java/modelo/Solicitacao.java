@@ -24,15 +24,16 @@ public class Solicitacao {
     private String tipo;
     private String estado;
     private String observacao;
-    private String justificativa;
+    private String jutificativa;
+    private String nome_disciplina;
     
-    @ManyToOne
-    @JoinColumn(name="disciplina")
-    private Disciplina disciplina;
+//    @ManyToOne
+//    @JoinColumn(name="disciplina")
+//    private Disciplina disciplina;
   
-    @ManyToOne
-    @JoinColumn(name="usuario")
-    private Usuario usuario;
+//    @ManyToOne
+//    @JoinColumn(name="usuario")
+//    private Usuario usuario;
     
     public int getId() {
         return id;
@@ -74,20 +75,29 @@ public class Solicitacao {
         this.observacao = observacao;
     }
 
-    public String getJustificativa() {
-        return justificativa;
+    public String getJutificativa() {
+        return jutificativa;
     }
 
-    public void setJustificativa(String justificativa) {
-        this.justificativa = justificativa;
+    public void setJutificativa(String justificativa) {
+        this.jutificativa = justificativa;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    
+//    public Disciplina getDisciplina() {
+//        return disciplina;
+//    }
+//
+//    public void setDisciplina(Disciplina disciplina) {
+//        this.disciplina = disciplina;
+//    }
+
+    public String getNome_disciplina() {
+        return nome_disciplina;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setNome_disciplina(String nome_disciplina) {
+        this.nome_disciplina = nome_disciplina;
     }
     
 }
