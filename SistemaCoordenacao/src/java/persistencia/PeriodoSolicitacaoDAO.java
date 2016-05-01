@@ -27,7 +27,6 @@ private final Session sessao;
     }
     
     public void criar(PeriodoSolicitacao p){
-        Transaction t = this.sessao.beginTransaction();
         this.sessao.save(p);
     }
 //create periodo solicitacao
