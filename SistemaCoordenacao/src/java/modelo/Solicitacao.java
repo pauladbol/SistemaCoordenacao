@@ -5,7 +5,9 @@
  */
 package modelo;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -34,6 +36,9 @@ public class Solicitacao {
 //    @ManyToOne
 //    @JoinColumn(name="usuario")
 //    private Usuario usuario;
+    
+    @OneToMany
+    private List<Documento> documentos;
     
     public int getId() {
         return id;
@@ -99,5 +104,14 @@ public class Solicitacao {
     public void setNome_disciplina(String nome_disciplina) {
         this.nome_disciplina = nome_disciplina;
     }
+
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+    
     
 }

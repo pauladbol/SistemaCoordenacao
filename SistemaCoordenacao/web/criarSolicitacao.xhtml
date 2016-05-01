@@ -35,9 +35,11 @@ and open the template in the editor.
 <!--                        <f:selectItems value="{disciplinaBean.listaDisciplinas}"/>-->
                     </p:selectOneMenu>
                     <p:outputLabel for="anexo" value="Anexo:" />
-                    <p:fileUpload id="anexo" value="#{documentoBean.file}" mode="simple" fileUploadListener="#{documentoBean.upload()}"/>
-                      
+                    <p:fileUpload id="anexo" value="#{documentoBean.file}" mode="simple"/>
+                    <p:commandButton value="Anexar Arquivo" ajax="true" actionListener="#{documentoBean.upload()}"/>
+                    
                     <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.salvar()}"/> 
+                    <p:commandButton value="Cancelar" ajax="false" action="index"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>

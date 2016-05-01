@@ -8,7 +8,10 @@ package modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +24,12 @@ public class Documento {
     private long tamanho;
     @Lob
     private byte[] arquivo;
-
+    
+    
+    @ManyToOne
+    @JoinColumn(name="solicitacao")
+    private Solicitacao Solicitacao;
+    
     public int getId() {
         return id;
     }
