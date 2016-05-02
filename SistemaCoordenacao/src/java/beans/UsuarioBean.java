@@ -53,10 +53,11 @@ public class UsuarioBean {
                 case "Professor":
                     telaPosLogin = "periodoSolicitacao.xhtml";
                     break;
-                    /** Quando Coordenador e CRE forem implementados
-                case "Coordenador":
-                    telaPosLogin = "";
+                    
+                case "Funcionario":
+                    telaPosLogin = "periodoSolicitacao.xhtml";
                     break;
+                /** Quando Coordenador e CRE forem implementados    
                 case "CRE":
                     telaPosLogin = "";
                     break;
@@ -69,7 +70,7 @@ public class UsuarioBean {
             
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Matricula nao encontrada", "Erro de Login"));
+                    "Matricula encontrada", ""));
         }
     }
     
