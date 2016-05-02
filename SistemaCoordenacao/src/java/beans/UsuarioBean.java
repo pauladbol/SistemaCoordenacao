@@ -33,7 +33,20 @@ public class UsuarioBean {
     }
     
     public String defineTelaPosLogin(){
-        switch (usuario.getTipo()){
+        return telaPosLogin;
+    }
+    
+    public void autentica(){
+        usuario = dao.autentica(usuario.getMatricula(), usuario.getTipo());
+        if(usuario == null){
+            usuario = new Usuario();
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Matricula nao encontrada", "Erro de Login")
+            );
+            telaPosLogin = "loginFailed.xhtml";
+        }else{
+            switch (usuario.getTipo()){
                 case "Aluno":
                     telaPosLogin = "criarSolicitacao.xhtml";
                     break;
@@ -49,22 +62,14 @@ public class UsuarioBean {
                     break;
                     */
                 default:
-                    telaPosLogin = "";
+                    telaPosLogin = "loginFailed.xhtml";
                     break;
                     
             }
-        return telaPosLogin;
-    }
-    
-    public void autentica(){
-        usuario = dao.autentica(usuario.getMatricula(), usuario.getTipo());
-        if(usuario == null){
-            usuario = new Usuario();
+            
             FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Matricula nao encontrada", "Erro de Login")
-            );
-            telaPosLogin = "";
+                    null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Matricula nao encontrada", "Erro de Login"));
         }
     }
     
