@@ -16,8 +16,7 @@
                 <f:selectItem itemValue="Coordenador" itemLabel="Coordenador"/>    
                 <f:selectItem itemValue="CRE" itemLabel="CRE"/>
             </h:selectOneMenu>
-            <h:commandButton value="Log in" actionListener="#{beanUsuario.autentica}" action="index"/>
-            <h:button outcome="periodoSolicitacao.xhtml" value="Abrir Periodo de Solicitação"></h:button>
+            <h:commandButton value="Log in" actionListener="#{beanUsuario.autentica}" action="#{beanUsuario.defineTelaPosLogin}"/>
         </h:form>
     </h:body>
 </html>

@@ -18,6 +18,7 @@ import persistencia.UsuarioDAO;
 public class UsuarioBean {
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
+    String telaPosLogin = "";
     
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
@@ -31,6 +32,10 @@ public class UsuarioBean {
         return dao.carregar(usuario.getMatricula());
     }
     
+    public String defineTelaPosLogin(){
+        return telaPosLogin;
+    }
+    
     public void autentica(){
         usuario = dao.autentica(usuario.getMatricula(), usuario.getTipo());
         if(usuario == null){
@@ -39,9 +44,33 @@ public class UsuarioBean {
                     null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Matricula nao encontrada", "Erro de Login")
             );
+            telaPosLogin = "";
+        }else{
+            switch (usuario.getTipo()){
+                case "Aluno":
+                    telaPosLogin = "criarSolicitacao.xhtml";
+                    break;
+                case "Professor":
+                    telaPosLogin = "periodoSolicitacao.xhtml";
+                    break;
+                    /** Quando Coordenador e CRE forem implementados
+                case "Coordenador":
+                    telaPosLogin = "";
+                    break;
+                case "CRE":
+                    telaPosLogin = "";
+                    break;
+                    */
+                default:
+                    telaPosLogin = "";
+                    break;
+                    
+            }
         }
     }
     
+    
+    @PreDestroy
     public void fechaSessao(){
         dao.terminaSessao();
     }
