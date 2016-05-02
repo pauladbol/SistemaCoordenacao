@@ -12,6 +12,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue
     private int matricula;
+    private String tipo;
     private String nome;
 
     public int getMatricula() {
@@ -29,6 +30,20 @@ public class Usuario implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }    
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     
 }

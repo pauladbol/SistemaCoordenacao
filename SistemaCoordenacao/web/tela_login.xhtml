@@ -10,7 +10,7 @@
         <h:form>
             <h:outputLabel value="Matrícula" for="campoMatricula"/>
             <h:inputText id="campoMatricula" maxlength="60" required="true" value="#{beanUsuario.usuario.matricula}"/>
-            <h:selectOneMenu value="#{beanUsuario.tipoUsuario}">
+            <h:selectOneMenu value="#{beanUsuario.usuario.tipo}">
                 <f:selectItem itemValue="Aluno" itemLabel="Aluno"/>
                 <f:selectItem itemValue="Professor" itemLabel="Professor"/>
                 <f:selectItem itemValue="Coordenador" itemLabel="Coordenador"/>    
