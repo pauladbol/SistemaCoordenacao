@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title><ui:insert name="titulo"/></title>
+        <link href="style/stylesheet.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+        <p:layout>
+            <p:layoutUnit position="center">
+
+                <div class="header">
+                    <img src="source/img/logo-ifrs.png" style="width: 350px"/>
+                    <h:form>  
+                        <p:growl id="messages"/>
+                        <p:menubar>
+                        </p:menubar>
+                    </h:form>
+                </div>
+                <div class="layout-body-larger">
+                    <h1><ui:insert name="titulo"/></h1>
+                    <ui:insert name="conteudo"/>
+                </div>
+                <div class="footer">
+                    <hr style="width: 50%"></hr>
+                    Created by: Andrei Andrade; Bruno Fontenele; Paula Bol; Thiago Mazuhim.
+                </div>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+</html>
+
