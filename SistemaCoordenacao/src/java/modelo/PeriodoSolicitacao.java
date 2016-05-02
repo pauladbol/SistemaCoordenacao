@@ -14,9 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import org.hibernate.annotations.Type;
-import persistencia.PeriodoSolicitacaoDAO;
 
 /**
  *
@@ -25,10 +23,6 @@ import persistencia.PeriodoSolicitacaoDAO;
 @Entity
 @Table(name="periodosolicitacao")
 public class PeriodoSolicitacao implements Serializable {
-
-    public PeriodoSolicitacao() {
-        this.estado = true;
-    }
     
     @Id
     @GeneratedValue
@@ -40,7 +34,6 @@ public class PeriodoSolicitacao implements Serializable {
     @Column(name="data_fim")
     @Type(type="timestamp")
     private Date dataFim;
-    private boolean estado;
 
     public int getId() {
         return id;
@@ -64,13 +57,5 @@ public class PeriodoSolicitacao implements Serializable {
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
 }
