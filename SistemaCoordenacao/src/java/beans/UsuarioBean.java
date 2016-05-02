@@ -17,6 +17,7 @@ public class UsuarioBean {
     UsuarioDAO dao = new UsuarioDAO();
     
     public void setUsuario(Usuario usuario){
+        //git test
         this.usuario = usuario;
     }
     
