@@ -57,6 +57,14 @@ public class Documento {
     public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
+
+    public Solicitacao getSolicitacao() {
+        return Solicitacao;
+    }
+
+    public void setSolicitacao(Solicitacao Solicitacao) {
+        this.Solicitacao = Solicitacao;
+    }
     
     
 }

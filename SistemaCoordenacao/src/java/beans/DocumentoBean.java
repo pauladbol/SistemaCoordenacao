@@ -43,9 +43,9 @@ public class DocumentoBean {
             documento.setTamanho(file.getSize());
             byte[] arquivo = file.getContents();
             documento.setArquivo(arquivo);
-            salvar();
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesMessage message = new FacesMessage("Arquivo ", file.getFileName() + " anexado");
             FacesContext.getCurrentInstance().addMessage(null, message);
+            salvar();
         }
     }
     

@@ -38,6 +38,8 @@ public class SolicitacaoBean {
         upload();
         daodoc.salvar(documento);
         dao.salvar(solicitacao);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public Solicitacao carrega(){
@@ -60,14 +62,15 @@ public class SolicitacaoBean {
         this.documento = documento;
     }
     
-    public void upload() {
+    public void upload() {FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
         if(file != null) {
             documento.setNome(file.getFileName());
             documento.setTamanho(file.getSize());
             byte[] arquivo = file.getContents();
             documento.setArquivo(arquivo);
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            documento.setSolicitacao(solicitacao);
+//            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 }
