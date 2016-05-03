@@ -16,7 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="conteudo">
             <h:form enctype="multipart/form-data">
-                <p:messages />
+                
                 <p:panelGrid columns="2">
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
                     <p:selectOneMenu id="tipo" value="#{solicitacaoBean.solicitacao.tipo}" style="width:300px">
@@ -35,9 +35,9 @@ and open the template in the editor.
 <!--                        <f:selectItems value="{disciplinaBean.listaDisciplinas}"/>-->
                     </p:selectOneMenu>
                     <p:outputLabel for="anexo" value="Anexo:" />
-                    <p:fileUpload id="anexo" value="#{solicitacaoBean.file}" mode="simple" fileUploadListener="#{solicitacaoBean.upload()}"/>
+                    <p:fileUpload id="anexo" value="#{solicitacaoBean.file}" mode="simple"/>
                     <p:commandButton value="Cancelar" ajax="false" action="index"/> 
-                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.salvar()}"/> 
+                    <p:commandButton value="Enviar Solicitação" ajax="false" action="#{solicitacaoBean.salvar()}"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>
