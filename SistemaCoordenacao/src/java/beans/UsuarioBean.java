@@ -69,8 +69,8 @@ public class UsuarioBean {
             }
             
             FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Matricula encontrada", ""));
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Bem vindo ao Sistema de Solicitações!", ""));
         }
     }
     
