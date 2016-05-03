@@ -6,9 +6,15 @@
 package modelo;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,7 +54,7 @@ public class PeriodoSolicitacao implements Serializable {
     }
 
     public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
+            this.dataInicio = dataInicio;
     }
 
     public Date getDataFim() {
@@ -56,6 +62,6 @@ public class PeriodoSolicitacao implements Serializable {
     }
 
     public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
+            this.dataFim = dataFim;
     }
 }

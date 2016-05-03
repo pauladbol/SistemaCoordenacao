@@ -1,8 +1,11 @@
 package beans;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -33,6 +36,32 @@ public class PeriodoSolicitacaoBean {
             context.addMessage(null, msg);
             return "";
         }
+        List<PeriodoSolicitacao> periodos = dao.buscar();
+        
+        for(PeriodoSolicitacao p : periodos) {
+            if ((periodo.getDataInicio().after(p.getDataInicio()) && !periodo.getDataInicio().after(p.getDataFim())) || 
+                    (periodo.getDataFim().after(p.getDataInicio()) && !periodo.getDataFim().after(p.getDataFim())) ||
+                    (!periodo.getDataInicio().after(p.getDataInicio()) && periodo.getDataFim().after(p.getDataFim()))) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                    "Já existe periodo aberto para as datas informadas!", "");
+                context.addMessage(null, msg);
+                return "";
+            }
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            String dateFormated = sdf.format(periodo.getDataInicio());
+            periodo.setDataInicio(sdf.parse(dateFormated));
+            dateFormated = sdf.format(periodo.getDataFim());
+            periodo.setDataFim(sdf.parse(dateFormated));
+        } catch (ParseException pe){
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                    "Já existe periodo aberto para as datas informadas!", "");
+            context.addMessage(null, msg);
+            return "";
+        }
+        
+        
         dao.criar(periodo);
         msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
                                     "O período de solicitação foi criado com sucesso!", "");

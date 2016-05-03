@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import java.util.List;
 import modelo.PeriodoSolicitacao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,9 +22,8 @@ private final Session sessao;
         this.sessao = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
-    public PeriodoSolicitacao buscar() {
-        return (PeriodoSolicitacao) this.sessao
-            .createQuery("select * from periodosolicitacao where estado = 'A'").uniqueResult();
+    public List<PeriodoSolicitacao> buscar() {
+        return (List<PeriodoSolicitacao>) this.sessao.createCriteria(PeriodoSolicitacao.class).list();
     }
     
     public void criar(PeriodoSolicitacao p){
