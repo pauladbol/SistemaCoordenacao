@@ -24,15 +24,13 @@ and open the template in the editor.
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
                     <h:outputText id="tipo" value="#{solicitacaoBean.solicitacao.tipo}"/>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <h:outputText id="disciplina" value="#{solicitacaoBean.solicitacao.nome_disciplina}"/>
+                    <h:outputText id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina.nome}"/>
                     
-                    
-                    
-                    <p:outputLabel for="estado" value="Estado:" />
-                    <h:outputText id="estado" value="#{solicitacaoBean.solicitacao.estado}"/>
                     
                     <p:commandButton value="Voltar" ajax="false" action="index"/> 
-                    <p:commandButton value="Avaliar Solicitacao" ajax="false" action="avaliarSolicitacao"/> 
+                    <p:commandButton value="Avaliar Solicitacao" ajax="false" action="avaliarSolicitacao"/> <!--CRE-->
+                    <p:commandButton value="Aceitar" ajax="false" /> <!--Coordenador-->
+                    <p:commandButton value="Indeferir" ajax="false" action="indeferirSolicitacao" /> <!--Coordenador-->
                 </p:panelGrid>
             </h:form>
         </ui:define>
