@@ -18,7 +18,7 @@
                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                         <p:outputLabel for="professores" value="Professores:" />
                         <p:selectOneRadio id="professores" value="#{beanUsuario.usuario}"  layout="grid" columns="1">
-                            <f:selectItems value="#{beanUsuario.listaProfessores}" var="c" itemLabel="#{usuario}" itemValue="#{usuario}"/>
+                            <f:selectItems value="#{beanProfessores.listaProfessores}" var="c" itemLabel="#{usuario}" itemValue="#{usuario}"/>
                         </p:selectOneRadio>
                     </h:panelGrid>
                 </h:form>

@@ -20,7 +20,6 @@ public class UsuarioBean {
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
     String telaPosLogin = "";
-    private List<Usuario> listaProfessores;
     
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;

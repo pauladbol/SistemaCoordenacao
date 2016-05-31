@@ -19,6 +19,6 @@ public class ProfessorDAO {
     public List<Usuario>listarProfessores(String disciplina){
         //return sessao.createCriteria(Usuario.class).list();
         //where disciplina == disciplina no banco
-        return sessao.createQuery("from Professores where disciplina == :disciplina").list();
+        return sessao.createQuery("from Professores where disciplina = :disciplina").list();
     }
 }
