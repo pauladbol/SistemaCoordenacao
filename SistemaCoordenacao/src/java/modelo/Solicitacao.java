@@ -7,13 +7,11 @@ package modelo;
 
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,15 +25,14 @@ public class Solicitacao {
     private String estado;
     private String observacao;
     private String justificativa;
-    private String nome_disciplina;
     
-//    @ManyToOne
-//    @JoinColumn(name="disciplina")
-//    private Disciplina disciplina;
+    @ManyToOne
+    @JoinColumn(name="disciplina")
+    private Disciplina disciplina;
   
-//    @ManyToOne
-//    @JoinColumn(name="usuario")
-//    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name="usuario")
+    private Usuario usuario;
     
     @OneToMany
     private List<Documento> documentos;
@@ -89,20 +86,12 @@ public class Solicitacao {
     }
 
     
-//    public Disciplina getDisciplina() {
-//        return disciplina;
-//    }
-//
-//    public void setDisciplina(Disciplina disciplina) {
-//        this.disciplina = disciplina;
-//    }
-
-    public String getNome_disciplina() {
-        return nome_disciplina;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setNome_disciplina(String nome_disciplina) {
-        this.nome_disciplina = nome_disciplina;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public List<Documento> getDocumentos() {
@@ -111,6 +100,14 @@ public class Solicitacao {
 
     public void setDocumentos(List<Documento> documentos) {
         this.documentos = documentos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     
