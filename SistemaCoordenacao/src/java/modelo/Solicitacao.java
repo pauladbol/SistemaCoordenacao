@@ -29,13 +29,13 @@ public class Solicitacao {
     private String justificativa;
     private String nome_disciplina;
     
-//    @ManyToOne
-//    @JoinColumn(name="disciplina")
-//    private Disciplina disciplina;
+    @ManyToOne
+    @JoinColumn(name="disciplina")
+    private Disciplina disciplina;
   
-//    @ManyToOne
-//    @JoinColumn(name="usuario")
-//    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name="usuario")
+    private Usuario usuario;
     
     @OneToMany
     private List<Documento> documentos;
@@ -89,13 +89,21 @@ public class Solicitacao {
     }
 
     
-//    public Disciplina getDisciplina() {
-//        return disciplina;
-//    }
-//
-//    public void setDisciplina(Disciplina disciplina) {
-//        this.disciplina = disciplina;
-//    }
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public String getNome_disciplina() {
         return nome_disciplina;
