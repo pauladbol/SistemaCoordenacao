@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import java.util.List;
 import modelo.Solicitacao;
 import org.hibernate.Session;
 
@@ -13,6 +14,10 @@ public class SolicitacaoDAO {
     
     public SolicitacaoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+    
+    public List<Solicitacao> buscarTodas() {
+        return (List<Solicitacao>) this.sessao.createCriteria(Solicitacao.class).list();
     }
     
     public Solicitacao carregar(int id) {
