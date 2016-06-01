@@ -7,7 +7,7 @@ package beans;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import modelo.Solicitacao;
 import persistencia.SolicitacaoDAO;
 
@@ -16,24 +16,35 @@ import persistencia.SolicitacaoDAO;
  * @author 10070128
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ConsultaSolicitacaoBean {
     final private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
     final private List<Solicitacao> solicitacoes;
+    private Solicitacao solicitacao;
     
     public ConsultaSolicitacaoBean() {
         solicitacoes = solicitacaoDAO.buscarTodas();
     }
-
-    public List<Solicitacao> getSolicitacoes() {
-        return solicitacoes;
-    }
     
-    public void detalhesSolicitacao(Solicitacao solicitacao) {
-        
+    public String detalhesSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+        return "detalheSolicitacao";
     }
     
     public void encaminharSolicitacao(Solicitacao solicitacao) {
         
     }
+    
+    public List<Solicitacao> getSolicitacoes() {
+        return solicitacoes;
+    }
+
+    public Solicitacao getSolicitacao() {
+        return solicitacao;
+    }
+
+    public void setSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+    }
+    
 }

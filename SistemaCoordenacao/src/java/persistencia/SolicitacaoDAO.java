@@ -10,7 +10,7 @@ import modelo.Solicitacao;
 import org.hibernate.Session;
 
 public class SolicitacaoDAO {
-    private Session sessao;
+    final private Session sessao;
     
     public SolicitacaoDAO() {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -21,10 +21,10 @@ public class SolicitacaoDAO {
     }
     
     public Solicitacao carregar(int id) {
-        return (Solicitacao) sessao.load(Solicitacao.class, id);
+        return (Solicitacao) this.sessao.load(Solicitacao.class, id);
     }
     
     public void salvar(Solicitacao solicitacao) {
-        sessao.saveOrUpdate(solicitacao);
+        this.sessao.saveOrUpdate(solicitacao);
     }
 }
