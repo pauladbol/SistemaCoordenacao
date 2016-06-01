@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="solicitacao")
-public class Solicitacao {
+public class Solicitacao implements Serializable {
     @Id
     @GeneratedValue
     private int id;
@@ -24,17 +25,13 @@ public class Solicitacao {
     private String tipo;
     private String estado;
     private String observacao;
-    private String justificativa;
-    private String nome_disciplina;
-    
+    private String justificativa; 
     @ManyToOne
     @JoinColumn(name="disciplina")
     private Disciplina disciplina;
-  
     @ManyToOne
     @JoinColumn(name="usuario")
     private Usuario usuario;
-    
     @OneToMany
     private List<Documento> documentos;
     
@@ -102,11 +99,6 @@ public class Solicitacao {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    public String getNome_disciplina() {
-        return nome_disciplina;
-    }
-
 
     public List<Documento> getDocumentos() {
         return documentos;

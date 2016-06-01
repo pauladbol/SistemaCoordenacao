@@ -18,15 +18,16 @@ and open the template in the editor.
             <h:form enctype="multipart/form-data">
                 <p:panelGrid columns="2">
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
-                    <p:selectOneMenu id="tipo" value="#{solicitacaoBean.solicitacao.tipo}" style="width:300px">
+                    <p:selectOneMenu id="tipo" value="#{solicitacaoBean.novaSolicitacao.tipo}" style="width:300px">
                         <f:selectItem itemLabel="Selecione um tipo de solicitação" itemValue="" />
                         <f:selectItem itemLabel="Aproveitamento de estudos" itemValue="aproveitamento" />
                         <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
-                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina}" style="width:300px" >
+                    <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.novaSolicitacao.disciplina}" style="width:300px" >
                         <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
-                        <f:selectItems value="#{solicitacaoBean.disciplinas}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
+                        <f:selectItems value="#{solicitacaoBean.disciplinas}"/>
+                        <f:converter converterId="disciplinaConverter"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="anexo" value="Anexo:" />
                     <p:fileUpload id="anexo" value="#{solicitacaoBean.file}" mode="simple" fileUploadListener="#{solicitacaoBean.upload()}"/>

@@ -16,7 +16,7 @@ public class SolicitacaoDAO {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
-    public List<Solicitacao> buscarTodas() {
+    public List<Solicitacao> listar() {
         return (List<Solicitacao>) this.sessao.createCriteria(Solicitacao.class).list();
     }
     
