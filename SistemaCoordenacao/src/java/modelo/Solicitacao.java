@@ -7,6 +7,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,10 +27,10 @@ public class Solicitacao implements Serializable {
     private String estado;
     private String observacao;
     private String justificativa; 
-    @ManyToOne
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name="disciplina")
     private Disciplina disciplina;
-    @ManyToOne
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name="usuario")
     private Usuario usuario;
     @OneToMany

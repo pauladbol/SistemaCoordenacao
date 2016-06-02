@@ -8,7 +8,6 @@ package beans;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.Disciplina;
@@ -23,7 +22,7 @@ import persistencia.SolicitacaoDAO;
 @SessionScoped
 public class SolicitacaoBean {
     final private List<Solicitacao> solicitacoes;
-    final private DocumentoDAO docDAO = new DocumentoDAO();
+//    final private DocumentoDAO docDAO = new DocumentoDAO();
     final private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
     final private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
@@ -38,8 +37,8 @@ public class SolicitacaoBean {
     }
     
     public void salvar() {
-        upload();
-        docDAO.salvar(documento);
+//        upload();
+//        docDAO.salvar(documento);
         solicitacaoDAO.salvar(novaSolicitacao);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -49,17 +48,17 @@ public class SolicitacaoBean {
         return solicitacaoDAO.carregar(novaSolicitacao.getId());
     }
     
-    public void upload() {FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-        if(file != null) {
-            documento.setNome(file.getFileName());
-            documento.setTamanho(file.getSize());
-            byte[] arquivo = file.getContents();
-            documento.setArquivo(arquivo);
-            documento.setSolicitacao(novaSolicitacao);
-//            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-    }
+//    public void upload() {FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//        if(file != null) {
+//            documento.setNome(file.getFileName());
+//            documento.setTamanho(file.getSize());
+//            byte[] arquivo = file.getContents();
+//            documento.setArquivo(arquivo);
+//            documento.setSolicitacao(novaSolicitacao);
+////            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+////            FacesContext.getCurrentInstance().addMessage(null, message);
+//        }
+//    }
     
     public String detalhesSolicitacao(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
@@ -68,6 +67,14 @@ public class SolicitacaoBean {
     
     public void encaminharSolicitacao(Solicitacao solicitacao) {
         
+    }
+    
+    public Disciplina findDisciplinaByName(String name) {
+        for(Disciplina disciplina : disciplinas) {
+            if (disciplina.getNome().equals(name))
+                return disciplina;
+        }
+        return null;
     }
     
     public UploadedFile getFile() {
@@ -108,13 +115,5 @@ public class SolicitacaoBean {
 
     public void setNovaSolicitacao(Solicitacao novaSolicitacao) {
         this.novaSolicitacao = novaSolicitacao;
-    }
-    
-    public Disciplina findDisciplinaByName(String name) {
-        for(Disciplina disciplina : disciplinas) {
-            if (disciplina.getNome().equals(name))
-                return disciplina;
-        }
-        return null;
     }
 }

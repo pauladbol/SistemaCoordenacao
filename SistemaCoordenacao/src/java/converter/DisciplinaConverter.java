@@ -29,7 +29,7 @@ public class DisciplinaConverter implements Converter{
             return null;
         }
         SolicitacaoBean bean = context.getApplication()
-                .evaluateExpressionGet(context, "#{disciplina}",
+                .evaluateExpressionGet(context, "#{solicitacaoBean}",
                         SolicitacaoBean.class);
         Disciplina disciplina = bean.findDisciplinaByName(value);
         return disciplina;
