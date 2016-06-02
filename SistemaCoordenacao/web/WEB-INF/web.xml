@@ -10,7 +10,7 @@
     </filter>
     <filter-mapping>
         <filter-name>FiltroTransacaoHibernate</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
