@@ -27,10 +27,10 @@ public class Solicitacao implements Serializable {
     private String estado;
     private String observacao;
     private String justificativa; 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne
     @JoinColumn(name="disciplina")
     private Disciplina disciplina;
-    @ManyToOne(cascade = ALL)
+    @ManyToOne
     @JoinColumn(name="usuario")
     private Usuario usuario;
     @OneToMany

@@ -6,6 +6,7 @@
 package persistencia;
 
 import java.util.List;
+import modelo.Disciplina;
 import modelo.Solicitacao;
 import org.hibernate.Session;
 
@@ -26,5 +27,21 @@ public class SolicitacaoDAO {
     
     public void salvar(Solicitacao solicitacao) {
         this.sessao.saveOrUpdate(solicitacao);
+    }
+    
+    public static void main(String[] args) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        s.beginTransaction();
+        
+        Disciplina d = (Disciplina) s.load(Disciplina.class, 2);
+        
+        Solicitacao soli = new Solicitacao();
+        soli.setDisciplina(d);
+        
+        s.save(soli);
+        
+        s.getTransaction().commit();
+        s.close();
+        System.out.println("fim!");
     }
 }

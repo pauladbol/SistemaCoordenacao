@@ -5,11 +5,14 @@
  */
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
 import modelo.Disciplina;
 import modelo.Documento;
 import modelo.Solicitacao;
@@ -19,9 +22,9 @@ import persistencia.DocumentoDAO;
 import persistencia.SolicitacaoDAO;
 
 @ManagedBean(name="solicitacaoBean")
-@SessionScoped
+@ViewScoped
 public class SolicitacaoBean {
-    final private List<Solicitacao> solicitacoes;
+    final private List<Solicitacao> solicitacoes = new ArrayList<>();
 //    final private DocumentoDAO docDAO = new DocumentoDAO();
     final private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
     final private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
@@ -33,13 +36,18 @@ public class SolicitacaoBean {
     
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
-        this.solicitacoes = solicitacaoDAO.listar();
+//        this.solicitacoes = solicitacaoDAO.listar();
     }
     
     public void salvar() {
 //        upload();
 //        docDAO.salvar(documento);
-        solicitacaoDAO.salvar(novaSolicitacao);
+        try {
+            solicitacaoDAO.salvar(novaSolicitacao);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+            return;
+        }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
@@ -60,15 +68,7 @@ public class SolicitacaoBean {
 //        }
 //    }
     
-    public String detalhesSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-        return "detalheSolicitacao";
-    }
-    
-    public void encaminharSolicitacao(Solicitacao solicitacao) {
-        
-    }
-    
+//23
     public Disciplina findDisciplinaByName(String name) {
         for(Disciplina disciplina : disciplinas) {
             if (disciplina.getNome().equals(name))
