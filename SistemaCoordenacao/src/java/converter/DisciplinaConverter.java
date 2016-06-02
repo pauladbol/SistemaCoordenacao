@@ -10,8 +10,6 @@ package converter;
  * @author andrei.andrade
  */
 import beans.SolicitacaoBean;
-import java.io.Serializable;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

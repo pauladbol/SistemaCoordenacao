@@ -80,6 +80,10 @@ public class SolicitacaoBean {
         return null;
     }
     
+    public void criarSolicitacao(){
+        
+    }
+    
     public UploadedFile getFile() {
         return file;
     }
