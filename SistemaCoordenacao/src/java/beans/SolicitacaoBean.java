@@ -26,8 +26,8 @@ import persistencia.SolicitacaoDAO;
 public class SolicitacaoBean {
     final private List<Solicitacao> solicitacoes = new ArrayList<>();
 //    final private DocumentoDAO docDAO = new DocumentoDAO();
-    final private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
-    final private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+    private SolicitacaoDAO solicitacaoDAO;
+    private DisciplinaDAO disciplinaDAO;
     final private List<Disciplina> disciplinas;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
@@ -35,15 +35,18 @@ public class SolicitacaoBean {
     private Documento documento = new Documento();
     
     public SolicitacaoBean() {
+        disciplinaDAO = new DisciplinaDAO();
         this.disciplinas = disciplinaDAO.listar();
 //        this.solicitacoes = solicitacaoDAO.listar();
     }
     
     public void salvar() {
+        solicitacaoDAO = new SolicitacaoDAO();
+        
 //        upload();
 //        docDAO.salvar(documento);
         try {
-            solicitacaoDAO.salvar(novaSolicitacao);
+            solicitacaoDAO.salvar(novaSolicitacao);            
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
             return;
