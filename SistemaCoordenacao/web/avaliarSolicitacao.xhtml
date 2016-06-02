@@ -21,7 +21,7 @@ and open the template in the editor.
                     <h:inputTextarea id="observacoes" rows="10" cols="50" value="#{solicitacaoBean.solicitacao.observacao}"/>
                                       
                     <p:commandButton value="Voltar" ajax="false" action="detalheSolicitacao"/> 
-                    <p:commandButton value="Enviar" ajax="false" /> 
+                    <p:commandButton value="Enviar" ajax="false" actionListener="#{solicitacaoBean.salvar()}"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>
