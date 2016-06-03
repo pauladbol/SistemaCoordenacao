@@ -8,6 +8,7 @@ package persistencia;
 import java.util.List;
 import modelo.Disciplina;
 import modelo.Solicitacao;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class SolicitacaoDAO {
@@ -29,19 +30,34 @@ public class SolicitacaoDAO {
         this.sessao.saveOrUpdate(solicitacao);
     }
     
+    public int findUltimoId(){
+        String sql = "SELECT id FROM Solicitacao ORDER BY id DESC";
+        Query query = sessao.createQuery(sql);
+        query.setMaxResults(1);
+        return (int) query.uniqueResult();
+    }
+    
     public static void main(String[] args) {
+//        Session s = HibernateUtil.getSessionFactory().openSession();
+//        s.beginTransaction();
+//        
+//        Disciplina d = (Disciplina) s.load(Disciplina.class, 2);
+//        
+//        Solicitacao soli = new Solicitacao();
+//        soli.setDisciplina(d);
+//        
+//        s.save(soli);
+//        
+//        s.getTransaction().commit();
+//        s.close();
+//        System.out.println("fim!");
+        
         Session s = HibernateUtil.getSessionFactory().openSession();
         s.beginTransaction();
-        
-        Disciplina d = (Disciplina) s.load(Disciplina.class, 2);
-        
-        Solicitacao soli = new Solicitacao();
-        soli.setDisciplina(d);
-        
-        s.save(soli);
-        
-        s.getTransaction().commit();
-        s.close();
-        System.out.println("fim!");
+        String sql = "SELECT id FROM Solicitacao ORDER BY id DESC";
+        Query query = s.createQuery(sql);
+        query.setMaxResults(1);
+        int i = (int) query.uniqueResult();
+        System.out.println(i);
     }
 }

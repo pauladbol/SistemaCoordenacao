@@ -20,8 +20,8 @@ and open the template in the editor.
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
                     <p:selectOneMenu id="tipo" value="#{solicitacaoBean.novaSolicitacao.tipo}" style="width:300px">
                         <f:selectItem itemLabel="Selecione um tipo de solicitação" itemValue="" />
-                        <f:selectItem itemLabel="Aproveitamento de estudos" itemValue="aproveitamento" />
-                        <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="certificacao" />
+                        <f:selectItem itemLabel="Aproveitamento de estudos" itemValue="Aproveitamento" />
+                        <f:selectItem itemLabel="Certificação de conhecimentos" itemValue="Certificação" />
                     </p:selectOneMenu>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
                     <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.novaSolicitacao.disciplina}" style="width:300px" >
@@ -32,7 +32,7 @@ and open the template in the editor.
 <!--                    <p:outputLabel for="anexo" value="Anexo:" />
                     <p:fileUpload id="anexo" value="{solicitacaoBean.file}" mode="simple" fileUploadListener="{solicitacaoBean.upload()}"/>-->
                     <p:commandButton value="Cancelar" ajax="false" action="index"/> 
-                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.salvar()}"/> 
+                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.criarSolicitacao()}"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>
