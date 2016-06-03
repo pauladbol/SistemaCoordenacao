@@ -71,6 +71,8 @@ public class SolicitacaoBean {
         Documento novoDocumento = new Documento();
         novoDocumento.setNome(arquivo.getFileName());
         novoDocumento.setTamanho(arquivo.getSize());
+        //Pendente setSolicitacao
+        documentos.add(novoDocumento);
         try {
             novoDocumento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
         } catch (IOException ex) {
