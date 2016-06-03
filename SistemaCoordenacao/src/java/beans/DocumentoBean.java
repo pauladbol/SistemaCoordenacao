@@ -5,14 +5,12 @@
  */
 package beans;
 
-import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import modelo.Documento;
 import org.primefaces.model.UploadedFile;
 import persistencia.DocumentoDAO;
-import sun.misc.IOUtils;
 
  
 @ManagedBean(name="documentoBean")

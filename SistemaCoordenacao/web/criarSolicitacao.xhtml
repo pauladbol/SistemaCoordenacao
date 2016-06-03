@@ -29,8 +29,9 @@ and open the template in the editor.
                         <f:selectItems value="#{solicitacaoBean.disciplinas}"/>
                         <f:converter converterId="disciplinaConverter"/>
                     </p:selectOneMenu>
-<!--                    <p:outputLabel for="anexo" value="Anexo:" />
-                    <p:fileUpload id="anexo" value="{solicitacaoBean.file}" mode="simple" fileUploadListener="{solicitacaoBean.upload()}"/>-->
+                    <p:outputLabel for="anexo" value="Anexo:" />
+                    <p:fileUpload id="anexo" fileUploadListener="#{solicitacaoBean.doUpload}" mode="advanced" dragDropSupport="false"
+                               auto="true" allowTypes="/(\.|\/)(pdf)$/"/>
                     <p:commandButton value="Cancelar" ajax="false" action="index"/> 
                     <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.criarSolicitacao()}"/> 
                 </p:panelGrid>

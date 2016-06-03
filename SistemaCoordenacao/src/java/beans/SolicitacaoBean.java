@@ -5,11 +5,17 @@
  */
 package beans;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +26,8 @@ import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
 import modelo.Solicitacao;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
@@ -29,14 +37,12 @@ import persistencia.SolicitacaoDAO;
 @ViewScoped
 public class SolicitacaoBean {
     private List<Solicitacao> solicitacoes = new ArrayList<>();
-//    final private DocumentoDAO docDAO = new DocumentoDAO();
     private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
-    private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+    private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
-    private UploadedFile file;
-    private Documento documento = new Documento();
+    private List<Documento> documentos = new ArrayList();
     
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
@@ -44,9 +50,6 @@ public class SolicitacaoBean {
     
     public void salvar() {
         solicitacaoDAO = new SolicitacaoDAO();
-        
-//        upload();
-//        docDAO.salvar(documento);
         try {
             solicitacaoDAO.salvar(novaSolicitacao);            
         } catch (Exception e) {
@@ -62,19 +65,19 @@ public class SolicitacaoBean {
         return solicitacaoDAO.carregar(novaSolicitacao.getId());
     }
     
-//    public void upload() {FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-//        if(file != null) {
-//            documento.setNome(file.getFileName());
-//            documento.setTamanho(file.getSize());
-//            byte[] arquivo = file.getContents();
-//            documento.setArquivo(arquivo);
-//            documento.setSolicitacao(novaSolicitacao);
-////            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-////            FacesContext.getCurrentInstance().addMessage(null, message);
-//        }
-//    }
-    
-//23
+    public void doUpload(FileUploadEvent event) {
+        UploadedFile arquivo = event.getFile();  
+        
+        Documento novoDocumento = new Documento();
+        novoDocumento.setNome(arquivo.getFileName());
+        novoDocumento.setTamanho(arquivo.getSize());
+        try {
+            novoDocumento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
+        }
+    }
+
     public Disciplina findDisciplinaByName(String name) {
         for(Disciplina disciplina : disciplinas) {
             if (disciplina.getNome().equals(name))
@@ -86,6 +89,7 @@ public class SolicitacaoBean {
     public void criarSolicitacao(){
         novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         novaSolicitacao.setProtocolo(geradorProtocolo());
+        novaSolicitacao.setDocumentos(documentos);
         salvar();
     }
     
@@ -104,22 +108,6 @@ public class SolicitacaoBean {
         protocolo += "000";
         protocolo += id;
         return Integer.parseInt(protocolo);
-    }
-    
-    public UploadedFile getFile() {
-        return file;
-    }
- 
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
-
-    public Documento getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(Documento documento) {
-        this.documento = documento;
     }
 
     public List<Disciplina> getDisciplinas() {
