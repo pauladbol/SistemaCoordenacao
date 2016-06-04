@@ -25,12 +25,14 @@ import javax.transaction.Transactional;
 import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
+import modelo.Professor;
 import modelo.Solicitacao;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
+import persistencia.ProfessorDAO;
 import persistencia.SolicitacaoDAO;
 
 @ManagedBean(name="solicitacaoBean")
@@ -40,12 +42,15 @@ public class SolicitacaoBean {
     private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
     private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
+    private final ProfessorDAO professorDAO = new ProfessorDAO();
+    final private List<Professor> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
     private List<Documento> documentos = new ArrayList();
     
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
+        this.professores = professorDAO.listar();
     }
     
     public void salvar() {
@@ -82,8 +87,16 @@ public class SolicitacaoBean {
 
     public Disciplina findDisciplinaByName(String name) {
         for(Disciplina disciplina : disciplinas) {
-            if (disciplina.getNome().equals(name))
+            if (disciplina. getNome().equals(name))
                 return disciplina;
+        }
+        return null;
+    }
+    
+    public Professor findProfessorByName(String name) {
+        for(Professor professor : professores) {
+            if (professor.getNome().equals(name))
+                return professor;
         }
         return null;
     }
@@ -92,6 +105,16 @@ public class SolicitacaoBean {
         novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         novaSolicitacao.setProtocolo(geradorProtocolo());
         novaSolicitacao.setDocumentos(documentos);
+        salvar();
+    }
+    
+    public void indeferirSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.INDEFERIDO.toString());
+        salvar();
+    }
+    
+    public void avaliarDocumentosSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.ANALISE.toString());
         salvar();
     }
     
@@ -135,4 +158,37 @@ public class SolicitacaoBean {
     public void setNovaSolicitacao(Solicitacao novaSolicitacao) {
         this.novaSolicitacao = novaSolicitacao;
     }
+
+    public SolicitacaoDAO getSolicitacaoDAO() {
+        return solicitacaoDAO;
+    }
+
+    public void setSolicitacaoDAO(SolicitacaoDAO solicitacaoDAO) {
+        this.solicitacaoDAO = solicitacaoDAO;
+    }
+
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+
+    public DisciplinaDAO getDisciplinaDAO() {
+        return disciplinaDAO;
+    }
+
+    public ProfessorDAO getProfessorDAO() {
+        return professorDAO;
+    }
+
+    public List<Professor> getProfessores() {
+        return professores;
+    }
+
+    public void setSolicitacoes(List<Solicitacao> solicitacoes) {
+        this.solicitacoes = solicitacoes;
+    }
+    
 }
