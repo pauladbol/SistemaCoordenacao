@@ -22,7 +22,7 @@ public class Solicitacao implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    private int protocolo;
+    private String protocolo;
     private String tipo;
     private String estado;
     private String observacao;
@@ -44,13 +44,15 @@ public class Solicitacao implements Serializable {
         this.id = id;
     }    
 
-    public int getProtocolo() {
+    public String getProtocolo() {
         return protocolo;
     }
 
-    public void setProtocolo(int protocolo) {
+    public void setProtocolo(String protocolo) {
         this.protocolo = protocolo;
     }
+
+
 
     public String getTipo() {
         return tipo;
