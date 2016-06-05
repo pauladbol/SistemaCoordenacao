@@ -31,6 +31,8 @@ and open the template in the editor.
                     <p:commandButton value="Avaliar Solicitacao" ajax="false" action="avaliarDocumentoSolicitacao"/> <!--CRE-->
                     <p:commandButton value="Aceitar Solicitacao" ajax="false" action="listarProfessores"/> <!--Coordenador-->
                     <p:commandButton value="Indeferir" ajax="false" action="indeferirSolicitacao" /> <!--Coordenador-->
+                    <p:commandButton value="Aprovar" ajax="false" actionListener="selecionarDataProva"/> <!--Professor -->
+                    <p:commandButton value="Reprovar" ajax="false" actionListener="reprovarSolicitacao"/> <!--Professor -->
                 </p:panelGrid>
             </h:form>
         </ui:define>

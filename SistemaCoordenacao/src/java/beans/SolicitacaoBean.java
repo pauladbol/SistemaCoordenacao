@@ -114,7 +114,27 @@ public class SolicitacaoBean {
     }
     
     public void avaliarDocumentosSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.PRE_ANALISE.toString());
+        salvar();
+    }
+    
+    public void aceitarSolicitacao(){
         novaSolicitacao.setEstado(EstadoEnum.ANALISE.toString());
+        salvar();
+    }
+    
+    public void aprovarSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.APROVADO.toString());
+        salvar();
+    }
+    
+    public void reprovarSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.REPROVADO.toString());
+        salvar();
+    }
+    
+    public void marcaProvaSolicitacao(){
+        novaSolicitacao.setEstado(EstadoEnum.PROVA.toString());
         salvar();
     }
     
