@@ -33,6 +33,9 @@ public class Solicitacao implements Serializable {
     @ManyToOne
     @JoinColumn(name="usuario")
     private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name="professor")
+    private Professor professor;
     @OneToMany
     private List<Documento> documentos;
     

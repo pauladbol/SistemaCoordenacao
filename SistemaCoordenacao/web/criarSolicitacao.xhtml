@@ -33,7 +33,7 @@ and open the template in the editor.
                     <p:fileUpload id="anexo" fileUploadListener="#{solicitacaoBean.doUpload}" mode="advanced" dragDropSupport="false"
                                auto="true" allowTypes="/(\.|\/)(pdf)$/"/>
                     <p:commandButton value="Cancelar" ajax="false" action="index"/> 
-                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.criarSolicitacao()}"/> 
+                    <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.criarSolicitacao()}" action="index"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>
