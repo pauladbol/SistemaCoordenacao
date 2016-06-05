@@ -42,7 +42,7 @@ public class Solicitacao implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }    
+    }     
 
     public String getProtocolo() {
         return protocolo;
@@ -51,8 +51,6 @@ public class Solicitacao implements Serializable {
     public void setProtocolo(String protocolo) {
         this.protocolo = protocolo;
     }
-
-
 
     public String getTipo() {
         return tipo;
