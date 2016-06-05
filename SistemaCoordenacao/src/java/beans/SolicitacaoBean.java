@@ -135,7 +135,7 @@ public class SolicitacaoBean {
         salvar();
     }
     
-    private int geradorProtocolo() {
+    private String geradorProtocolo() {
         solicitacaoDAO = new SolicitacaoDAO();
         int id = solicitacaoDAO.findUltimoId();
         
@@ -149,7 +149,7 @@ public class SolicitacaoBean {
         protocolo += cal.get(Calendar.DAY_OF_MONTH);
         protocolo += "000";
         protocolo += id;
-        return Integer.parseInt(protocolo);
+        return protocolo;
     }
     
     public String consultaSolicitacao(){
