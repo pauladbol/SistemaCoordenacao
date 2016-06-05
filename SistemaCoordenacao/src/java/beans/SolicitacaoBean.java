@@ -5,23 +5,16 @@
  */
 package beans;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.transaction.Transactional;
 import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
@@ -36,7 +29,7 @@ import persistencia.ProfessorDAO;
 import persistencia.SolicitacaoDAO;
 
 @ManagedBean(name="solicitacaoBean")
-@ViewScoped
+@SessionScoped
 public class SolicitacaoBean {
     private List<Solicitacao> solicitacoes = new ArrayList<>();
     private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
@@ -51,6 +44,7 @@ public class SolicitacaoBean {
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
         this.professores = professorDAO.listar();
+        this.novaSolicitacao.setProtocolo(geradorProtocolo());
     }
     
     public void salvar() {
@@ -72,17 +66,16 @@ public class SolicitacaoBean {
     
     public void doUpload(FileUploadEvent event) {
         UploadedFile arquivo = event.getFile();  
-        
         Documento novoDocumento = new Documento();
-        novoDocumento.setNome(arquivo.getFileName());
-        novoDocumento.setTamanho(arquivo.getSize());
-        //Pendente setSolicitacao
-        documentos.add(novoDocumento);
         try {
+            novoDocumento.setSolicitacao(novaSolicitacao);
+            novoDocumento.setNome(arquivo.getFileName());
+            novoDocumento.setTamanho(arquivo.getSize());
             novoDocumento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
         }
+        documentos.add(novoDocumento);
     }
 
     public Disciplina findDisciplinaByName(String name) {
@@ -103,8 +96,12 @@ public class SolicitacaoBean {
     
     public void criarSolicitacao(){
         novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
-        novaSolicitacao.setProtocolo(geradorProtocolo());
-        novaSolicitacao.setDocumentos(documentos);
+        DocumentoDAO documentoDAO = new DocumentoDAO();
+        
+        for (Documento d : this.documentos) {
+            documentoDAO.salvar(d);
+        }
+        
         salvar();
     }
     
@@ -153,6 +150,17 @@ public class SolicitacaoBean {
         protocolo += "000";
         protocolo += id;
         return protocolo;
+    }
+    
+    public String consultaSolicitacao(){
+        this.solicitacaoDAO = new SolicitacaoDAO();
+        this.solicitacoes = solicitacaoDAO.listar();
+        return "consultaSolicitacao";
+    }
+    
+    public String detalhesSolicitacao(Solicitacao solicitacao){
+        this.solicitacao = solicitacao;
+        return "detalheSolicitacao";
     }
 
     public List<Disciplina> getDisciplinas() {

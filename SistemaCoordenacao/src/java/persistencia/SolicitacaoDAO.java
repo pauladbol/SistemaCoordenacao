@@ -34,7 +34,10 @@ public class SolicitacaoDAO {
         String sql = "SELECT id FROM Solicitacao ORDER BY id DESC";
         Query query = sessao.createQuery(sql);
         query.setMaxResults(1);
-        return (int) query.uniqueResult();
+        if (query.uniqueResult() != null) {
+            return (int) query.uniqueResult();
+        }
+        return 0;
     }
     
     public static void main(String[] args) {
