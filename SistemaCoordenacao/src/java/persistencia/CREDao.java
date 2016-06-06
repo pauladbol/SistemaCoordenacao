@@ -22,9 +22,9 @@ public class CREDao {
         return (CRE) sessao.load(CRE.class, id);
     }
     
-    public CRE autentica(int id){
+    public CRE autentica(int matricula){
         return (CRE) sessao.createCriteria(CRE.class)
-                .add(Restrictions.eq("id", id))
+                .add(Restrictions.eq("matricula", matricula))
                 .uniqueResult();
     }
     

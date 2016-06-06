@@ -23,6 +23,7 @@ import persistencia.ProfessorDAO;
 @ManagedBean(name="beanLogin")
 @SessionScoped
 public class Login {
+    int id;
     private String tipo;
     private int matricula;
     private String telaPosLogin;

@@ -23,6 +23,8 @@ public class Aluno implements Serializable {
     @Id
     private int id;
     private String nome;
+    private int matricula;
+    
 
     /**
      * @return the id
@@ -50,5 +52,19 @@ public class Aluno implements Serializable {
      */
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    /**
+     * @return the matricula
+     */
+    public int getMatricula() {
+        return matricula;
+    }
+
+    /**
+     * @param matricula the matricula to set
+     */
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 }

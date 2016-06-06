@@ -30,12 +30,16 @@ public class ProfessorDAO {
     
     public Professor autentica(int matricula){
         return (Professor) sessao.createCriteria(Professor.class)
-                .add(Restrictions.eq("id", matricula))
+                .add(Restrictions.eq("matricula", matricula))
                 .uniqueResult();
     }
     @PreDestroy
     public void terminaSessao(){
         sessao.close();
+    }
+
+    public List<Professor> listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

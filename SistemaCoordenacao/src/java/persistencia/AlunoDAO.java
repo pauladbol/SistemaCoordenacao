@@ -23,7 +23,7 @@ public class AlunoDAO {
         return (Aluno) sessao.load(Aluno.class, id);
     }
     
-    public Aluno autentica(int id){
+    public Aluno autentica(int matricula){
         /*
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = null;
@@ -40,7 +40,7 @@ public class AlunoDAO {
         }
 */
         return (Aluno) sessao.createCriteria(Aluno.class)
-                .add(Restrictions.eq("id", id))
+                .add(Restrictions.eq("matricula", matricula))
                 .uniqueResult();
     }
     

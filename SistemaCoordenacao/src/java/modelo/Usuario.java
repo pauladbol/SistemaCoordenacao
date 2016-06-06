@@ -11,6 +11,7 @@ import javax.persistence.Table;
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue
+    private int id;
     private int matricula;
     private String tipo;
     private String nome;
