@@ -39,19 +39,11 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }    
 
-    /**
-     * @return the tipo
-     */
     public String getTipo() {
         return tipo;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    
 }

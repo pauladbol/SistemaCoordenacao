@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import javax.persistence.Entity;
@@ -13,5 +8,13 @@ import javax.persistence.Table;
 @Table(name="professor")
 @PrimaryKeyJoinColumn(name="id")
 public class Professor extends Usuario{
-    
+    boolean coordenador;
+
+    public boolean isCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(boolean coordenador) {
+        this.coordenador = coordenador;
+    }
 }
