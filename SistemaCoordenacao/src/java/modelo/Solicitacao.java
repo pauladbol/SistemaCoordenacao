@@ -33,9 +33,11 @@ public class Solicitacao implements Serializable {
     @ManyToOne
     @JoinColumn(name="usuario")
     private Usuario usuario;
+    
     @ManyToOne
     @JoinColumn(name="professor")
     private Professor professor;
+    
     @OneToMany
     private List<Documento> documentos;
     
@@ -102,6 +104,14 @@ public class Solicitacao implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public List<Documento> getDocumentos() {

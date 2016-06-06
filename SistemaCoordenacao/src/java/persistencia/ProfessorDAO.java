@@ -6,7 +6,6 @@
 package persistencia;
 
 import java.util.List;
-import modelo.Disciplina;
 import modelo.Professor;
 import org.hibernate.Session;
 
