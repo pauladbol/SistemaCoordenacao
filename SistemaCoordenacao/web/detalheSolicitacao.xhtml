@@ -25,7 +25,10 @@ and open the template in the editor.
                     <h:outputText id="tipo" value="#{solicitacaoBean.solicitacao.tipo}"/>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
                     <h:outputText id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina.nome}"/>
-                    
+                    <p:outputLabel value="Anexo:" />
+                    <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{solicitacaoBean.arquivoDownload}" />
+                    </p:commandButton>
                     
                     <p:commandButton value="Voltar" ajax="false" action="index"/> 
                     <p:commandButton value="Encaminhar Solicitação" ajax="false" action="encaminharSolicitacao"/> <!--CRE-->

@@ -5,13 +5,18 @@
  */
 package beans;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -20,8 +25,11 @@ import modelo.Documento;
 import modelo.EstadoEnum;
 import modelo.Professor;
 import modelo.Solicitacao;
+import modelo.Usuario;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
@@ -39,7 +47,10 @@ public class SolicitacaoBean {
     final private List<Professor> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
+    private Documento documento = new Documento();
+    private UploadedFile arquivo;
     private List<Documento> documentos = new ArrayList();
+    private StreamedContent arquivoDownload;
     
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
@@ -63,20 +74,6 @@ public class SolicitacaoBean {
     public Solicitacao carrega(){
         return solicitacaoDAO.carregar(novaSolicitacao.getId());
     }
-    
-    public void doUpload(FileUploadEvent event) {
-        UploadedFile arquivo = event.getFile();  
-        Documento novoDocumento = new Documento();
-        try {
-            novoDocumento.setSolicitacao(novaSolicitacao);
-            novoDocumento.setNome(arquivo.getFileName());
-            novoDocumento.setTamanho(arquivo.getSize());
-            novoDocumento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
-        } catch (IOException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
-        }
-        documentos.add(novoDocumento);
-    }
 
     public Disciplina findDisciplinaByName(String name) {
         for(Disciplina disciplina : disciplinas) {
@@ -97,41 +94,64 @@ public class SolicitacaoBean {
     public void criarSolicitacao(){
         novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         DocumentoDAO documentoDAO = new DocumentoDAO();
-        
-        for (Documento d : this.documentos) {
-            documentoDAO.salvar(d);
+        solicitacaoDAO = new SolicitacaoDAO();
+        try {
+            documento.setNome(arquivo.getFileName());
+            documento.setTamanho(arquivo.getSize());
+            documento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
+            documento.setSolicitacao(novaSolicitacao);
+            solicitacaoDAO.salvar(novaSolicitacao);
+            documentoDAO.salvar(documento);            
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
+            return;
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+            return;
         }
         
-        salvar();
+        novaSolicitacao = new Solicitacao();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public void indeferirSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.INDEFERIDO.toString());
+        solicitacao.setEstado(EstadoEnum.INDEFERIDO.toString());
         salvar();
     }
     
-    public void avaliarDocumentosSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.PRE_ANALISE.toString());
-        salvar();
+    public String avaliarDocumentosSolicitacao(){
+        solicitacao.setEstado(EstadoEnum.PRE_ANALISE.toString());
+        solicitacaoDAO = new SolicitacaoDAO();
+        try {
+            solicitacaoDAO.salvar(solicitacao);            
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+            return "";
+        }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        return "consultaSolicitacao";
     }
     
     public void aceitarSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.ANALISE.toString());
+        solicitacao.setEstado(EstadoEnum.ANALISE.toString());
         salvar();
     }
     
     public void aprovarSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.APROVADO.toString());
+        solicitacao.setEstado(EstadoEnum.APROVADO.toString());
         salvar();
     }
     
     public void reprovarSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.REPROVADO.toString());
+        solicitacao.setEstado(EstadoEnum.REPROVADO.toString());
         salvar();
     }
     
     public void marcaProvaSolicitacao(){
-        novaSolicitacao.setEstado(EstadoEnum.PROVA.toString());
+        solicitacao.setEstado(EstadoEnum.PROVA.toString());
         salvar();
     }
     
@@ -160,6 +180,10 @@ public class SolicitacaoBean {
     
     public String detalhesSolicitacao(Solicitacao solicitacao){
         this.solicitacao = solicitacao;
+        DocumentoDAO documentoDAO = new DocumentoDAO();
+        this.documento = documentoDAO.findBySolicitacao(solicitacao);
+        ByteArrayInputStream input = new ByteArrayInputStream(this.documento.getArquivo());
+        arquivoDownload = new DefaultStreamedContent(input, "", this.documento.getNome());
         return "detalheSolicitacao";
     }
 
@@ -218,5 +242,24 @@ public class SolicitacaoBean {
     public void setSolicitacoes(List<Solicitacao> solicitacoes) {
         this.solicitacoes = solicitacoes;
     }
-    
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    public UploadedFile getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(UploadedFile arquivo) {
+        this.arquivo = arquivo;
+    }
+
+    public StreamedContent getArquivoDownload() {
+        return arquivoDownload;
+    }
 }
