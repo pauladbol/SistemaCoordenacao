@@ -1,6 +1,7 @@
 package persistencia;
 
 import java.util.List;
+import javax.annotation.PreDestroy;
 import modelo.CRE;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,18 +16,6 @@ public class CREDao {
     
     public CREDao(){
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        try {
-            tx = sessao.beginTransaction();
-            tx.commit();
-        }
-        catch (Exception e) {
-        if (tx!=null) tx.rollback();
-            throw e;
-        }
-        finally {
-            //sessao.close();
-        }
     }
     
     public CRE carregar(int id) {
@@ -39,6 +28,7 @@ public class CREDao {
                 .uniqueResult();
     }
     
+    @PreDestroy
     public void terminaSessao(){
         sessao.close();
     }

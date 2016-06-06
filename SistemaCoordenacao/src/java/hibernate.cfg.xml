@@ -13,5 +13,8 @@
     <mapping class="modelo.Curso"/>
     <mapping class="modelo.Usuario"/>
     <mapping class="modelo.PeriodoSolicitacao"/>
+    <mapping class="modelo.Professor"/>
+    <mapping class="modelo.Aluno"/>
+    <mapping class="modelo.CRE"/>
   </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package persistencia;
 
 import java.util.List;
+import javax.annotation.PreDestroy;
 import modelo.Professor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,18 +16,6 @@ public class ProfessorDAO {
     
     public ProfessorDAO(){
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        try {
-            tx = sessao.beginTransaction();
-            tx.commit();
-        }
-        catch (Exception e) {
-        if (tx!=null) tx.rollback();
-            throw e;
-        }
-        finally {
-            //sessao.close();
-        }
     }
     
     public List<Professor>listarProfessores(String disciplina){
@@ -44,7 +33,7 @@ public class ProfessorDAO {
                 .add(Restrictions.eq("id", matricula))
                 .uniqueResult();
     }
-    
+    @PreDestroy
     public void terminaSessao(){
         sessao.close();
     }

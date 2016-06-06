@@ -1,6 +1,7 @@
 package persistencia;
 
 import java.util.List;
+import javax.annotation.PreDestroy;
 import modelo.Aluno;
 import modelo.Usuario;
 import org.hibernate.Session;
@@ -16,6 +17,15 @@ public class AlunoDAO {
     
     public AlunoDAO(){
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+    
+    public Aluno carregar(int id) {
+        return (Aluno) sessao.load(Aluno.class, id);
+    }
+    
+    public Aluno autentica(int id){
+        /*
+        sessao = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         try {
             tx = sessao.beginTransaction();
@@ -28,18 +38,14 @@ public class AlunoDAO {
         finally {
             //sessao.close();
         }
-    }
-    
-    public Aluno carregar(int id) {
-        return (Aluno) sessao.load(Aluno.class, id);
-    }
-    
-    public Aluno autentica(int id){
+*/
         return (Aluno) sessao.createCriteria(Aluno.class)
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
     }
     
+    
+    @PreDestroy
     public void terminaSessao(){
         sessao.close();
     }

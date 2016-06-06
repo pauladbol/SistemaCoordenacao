@@ -1,12 +1,16 @@
 package modelo;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author 10070077
  */
+@Entity
+@Table(name="Professor")
 public class Professor {
     @Id
     @GeneratedValue
