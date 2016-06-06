@@ -15,16 +15,17 @@
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Matrícula" for="campoMatricula"/>
-                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{beanUsuario.usuario.matricula}"/>
+                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{beanLogin.matricula}"/>
                         <p:outputLabel value="Eu sou: "/>
-                        <p:selectOneMenu value="#{beanUsuario.usuario.tipo}">
+                        <p:selectOneMenu value="#{beanLogin.tipo}">
                             <f:selectItem itemValue="Aluno" itemLabel="Aluno"/>
-                            <f:selectItem itemValue="Funcionario" itemLabel="Funcionario"/>
+                            <f:selectItem itemValue="Professor" itemLabel="Professor"/>
+                            <f:selectItem itemValue="CRE" itemLabel="CRE"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <br/>
                     <br/>
-                    <p:commandButton ajax="false" value="Log in" actionListener="#{beanUsuario.autentica}" action="index" />
+                    <p:commandButton ajax="false" value="Log in" actionListener="#{beanLogin.loga}" action="#{beanLogin.defineTelaPosLogin}" />
                 </h:form>
             </div>
         </ui:define>

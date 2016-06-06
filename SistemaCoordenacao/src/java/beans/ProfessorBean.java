@@ -1,39 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import modelo.Professor;
 import persistencia.ProfessorDAO;
 
-@ManagedBean(name="professorBean")
-@RequestScoped
+/**
+ *
+ * @author 10070077
+ */
+
+@ManagedBean(name="beanProfessor")
+@SessionScoped
 public class ProfessorBean {
+    private List<Professor> lista_professores;
     Professor professor = new Professor();
-    ProfessorDAO dao = new ProfessorDAO();
-    private List<Professor> listaProfessores;
-
-    public ProfessorBean() {
-        listaProfessores = dao.listar();
-    }
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setDisciplina(Professor professor) {
-        this.professor = professor;
+    ProfessorDAO professorDAO = new ProfessorDAO();
+    
+    public List<Professor> listaProfessores(){
+        //lista_professores = professorDAO.listarProfessores(null)
+        return lista_professores;
     }
     
-    public Professor carrega(){
-        return dao.carregar(professor.getId());
-    }
-    
-    public List<Professor> getListaDisciplinas() {
-        return listaProfessores;
+    public boolean autentica(int matricula){
+        professor = professorDAO.autentica(matricula);
+        
+        if(professor==null){
+            return false;
+        }
+        return true;
     }
 }

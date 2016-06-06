@@ -1,5 +1,6 @@
 package persistencia;
 
+import javax.annotation.PreDestroy;
 import modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,20 +10,7 @@ public class UsuarioDAO {
     private Session sessao;
     
     public UsuarioDAO() {
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        
-        Transaction tx = null;
-        try {
-            tx = sessao.beginTransaction();
-            tx.commit();
-        }
-        catch (Exception e) {
-        if (tx!=null) tx.rollback();
-            throw e;
-        }
-        finally {
-            //sessao.close();
-        }
+        sessao = HibernateUtil.getSessionFactory().getCurrentSession();
  
     }
     
@@ -36,7 +24,7 @@ public class UsuarioDAO {
                 .add(Restrictions.eq("tipo", tipo))
                 .uniqueResult();
     }
-    
+    @PreDestroy
     public void terminaSessao(){
         sessao.close();
     }
