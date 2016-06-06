@@ -1,10 +1,16 @@
 package modelo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author 10070077
  */
 public class Professor {
+    @Id
+    @GeneratedValue
+    private int id;
     private String nome,
                    disciplina;
 

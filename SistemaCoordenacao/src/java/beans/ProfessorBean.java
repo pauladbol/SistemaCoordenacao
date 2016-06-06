@@ -20,13 +20,15 @@ public class ProfessorBean {
     
     public List<Professor> listaProfessores(){
         //lista_professores = professorDAO.listarProfessores(null)
-        
-        
-        
         return lista_professores;
     }
     
-    
-    
-    
+    public boolean autentica(int matricula){
+        professor = professorDAO.autentica(matricula);
+        
+        if(professor==null){
+            return false;
+        }
+        return true;
+    }
 }

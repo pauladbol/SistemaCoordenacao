@@ -1,7 +1,7 @@
 package persistencia;
 
 import java.util.List;
-import modelo.Professor;
+import modelo.CRE;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -10,10 +10,10 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author 10070077
  */
-public class ProfessorDAO {
+public class CREDao {
     private Session sessao;
     
-    public ProfessorDAO(){
+    public CREDao(){
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         try {
@@ -29,19 +29,13 @@ public class ProfessorDAO {
         }
     }
     
-    public List<Professor>listarProfessores(String disciplina){
-        //return sessao.createCriteria(Usuario.class).list();
-        //where disciplina == disciplina no banco
-        return sessao.createQuery("from Professores where disciplina = :disciplina").list();
+    public CRE carregar(int id) {
+        return (CRE) sessao.load(CRE.class, id);
     }
     
-    public Professor carregar(int id) {
-        return (Professor) sessao.load(Professor.class, id);
-    }
-    
-    public Professor autentica(int matricula){
-        return (Professor) sessao.createCriteria(Professor.class)
-                .add(Restrictions.eq("id", matricula))
+    public CRE autentica(int id){
+        return (CRE) sessao.createCriteria(CRE.class)
+                .add(Restrictions.eq("id", id))
                 .uniqueResult();
     }
     
