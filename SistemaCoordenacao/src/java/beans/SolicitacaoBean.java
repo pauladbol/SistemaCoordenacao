@@ -8,6 +8,7 @@ package beans;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class SolicitacaoBean {
     private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
     private final ProfessorDAO professorDAO = new ProfessorDAO();
-    final private List<Professor> professores;
+    private List<Professor> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
     private Documento documento = new Documento();
@@ -54,7 +55,6 @@ public class SolicitacaoBean {
     
     public SolicitacaoBean() {
         this.disciplinas = disciplinaDAO.listar();
-        this.professores = professorDAO.listar();
         this.novaSolicitacao.setProtocolo(geradorProtocolo());
     }
     
@@ -91,22 +91,20 @@ public class SolicitacaoBean {
         return null;
     }
     
-    public void criarSolicitacao(){
+    public void criarSolicitacao() {
         novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         DocumentoDAO documentoDAO = new DocumentoDAO();
-        solicitacaoDAO = new SolicitacaoDAO();
+        
         try {
             documento.setNome(arquivo.getFileName());
             documento.setTamanho(arquivo.getSize());
             documento.setArquivo(IOUtils.toByteArray(arquivo.getInputstream()));
-            documento.setSolicitacao(novaSolicitacao);
+            solicitacaoDAO = new SolicitacaoDAO();
             solicitacaoDAO.salvar(novaSolicitacao);
-            documentoDAO.salvar(documento);            
+            documento.setSolicitacao(novaSolicitacao);
+            documentoDAO.salvar(documento); 
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
-            return;
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
             return;
         }
         
