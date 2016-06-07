@@ -15,9 +15,9 @@
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Matrícula" for="campoMatricula"/>
-                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{beanLogin.matricula}"/>
+                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{loginBean.matricula}"/>
                         <p:outputLabel value="Eu sou: "/>
-                        <p:selectOneMenu value="#{beanLogin.tipo}">
+                        <p:selectOneMenu value="#{loginBean.tipo}">
                             <f:selectItem itemValue="Aluno" itemLabel="Aluno"/>
                             <f:selectItem itemValue="Professor" itemLabel="Professor"/>
                             <f:selectItem itemValue="CRE" itemLabel="CRE"/>

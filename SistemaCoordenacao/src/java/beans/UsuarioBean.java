@@ -1,14 +1,11 @@
 package beans;
 
-import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import modelo.Aluno;
 import modelo.Usuario;
-import persistencia.AlunoDAO;
 import persistencia.UsuarioDAO;
 
 /**
