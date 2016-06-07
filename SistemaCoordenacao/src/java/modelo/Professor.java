@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,13 +13,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Professor")
-public class Professor {
+public class Professor implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    private String nome,
-                   disciplina;
+    private String nome;
+    @Column
     private int matricula;
+    private boolean coordenador;
 
     /**
      * @return the nome
@@ -34,20 +37,6 @@ public class Professor {
     }
 
     /**
-     * @return the disciplina
-     */
-    public String getDisciplina() {
-        return disciplina;
-    }
-
-    /**
-     * @param disciplina the disciplina to set
-     */
-    public void setDisciplina(String disciplina) {
-        this.disciplina = disciplina;
-    }
-
-    /**
      * @return the matricula
      */
     public int getMatricula() {
@@ -59,6 +48,14 @@ public class Professor {
      */
     public void setMatricula(int matricula) {
         this.matricula = matricula;
+    }
+
+    public boolean isCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(boolean coordenador) {
+        this.coordenador = coordenador;
     }
     
 }
