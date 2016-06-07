@@ -2,10 +2,10 @@ package beans;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -19,51 +19,44 @@ public class PeriodoSolicitacaoBean {
     private PeriodoSolicitacaoDAO dao = new PeriodoSolicitacaoDAO();
     private PeriodoSolicitacao periodo = new PeriodoSolicitacao();
     
-    public String criarPeriodo(){
+    public String criarPeriodo() throws ParseException{
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg;
         
-        Date data = new Date();
-        if (!periodo.getDataInicio().after(data)){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = sdf.format(new Date());
+        Date dataAtual = sdf.parse(dataFormatada);
+        
+        if (periodo.getDataInicio().before(dataAtual)){
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
-                                    "A data de ínicio deve ser maior que a data atual!", "");
+                                    "A data de ínicio deve ser maior ou igual a data atual!", "");
             context.addMessage(null, msg);
             return "";
         }
-        if (!periodo.getDataFim().after(periodo.getDataInicio())){
+        if (periodo.getDataFim().before(periodo.getDataInicio())){
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
                                     "A data de fim não pode ser menor que a data de ínicio!", "");
             context.addMessage(null, msg);
             return "";
         }
-        List<PeriodoSolicitacao> periodos = dao.buscar();
+        List<PeriodoSolicitacao> periodos = dao.listar();
         
         for(PeriodoSolicitacao p : periodos) {
-            if ((periodo.getDataInicio().after(p.getDataInicio()) && !periodo.getDataInicio().after(p.getDataFim())) || 
-                    (periodo.getDataFim().after(p.getDataInicio()) && !periodo.getDataFim().after(p.getDataFim())) ||
-                    (!periodo.getDataInicio().after(p.getDataInicio()) && periodo.getDataFim().after(p.getDataFim()))) {
+            if ((periodo.getDataInicio().after(p.getDataInicio()) && periodo.getDataInicio().before(p.getDataFim())) || 
+                    (periodo.getDataFim().after(p.getDataInicio()) && periodo.getDataFim().before(p.getDataFim())) ||
+                    (periodo.getDataInicio().before(p.getDataInicio()) && periodo.getDataFim().after(p.getDataFim()))) {
                 msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
                                     "Já existe periodo aberto para as datas informadas!", "");
                 context.addMessage(null, msg);
                 return "";
             }
         }
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            String dateFormated = sdf.format(periodo.getDataInicio());
-            periodo.setDataInicio(sdf.parse(dateFormated));
-            dateFormated = sdf.format(periodo.getDataFim());
-            periodo.setDataFim(sdf.parse(dateFormated));
-        } catch (ParseException pe){
-            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                                    "Já existe periodo aberto para as datas informadas!", "");
-            context.addMessage(null, msg);
-            return "";
-        }
+        periodo.setDataInicio(periodo.getDataInicio());
+        periodo.setDataFim(periodo.getDataFim());
         
         
         dao.criar(periodo);
-        msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
                                     "O período de solicitação foi criado com sucesso!", "");
         context.addMessage(null, msg);
         this.periodo = new PeriodoSolicitacao();

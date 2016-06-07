@@ -5,8 +5,11 @@
  */
 package beans;
 
+import com.oracle.xmlns.internal.webservices.jaxws_databinding.SoapBindingParameterStyle;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +21,7 @@ import javax.faces.context.FacesContext;
 import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
+import modelo.PeriodoSolicitacao;
 import modelo.Professor;
 import modelo.Solicitacao;
 import org.apache.commons.io.IOUtils;
@@ -26,6 +30,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
+import persistencia.PeriodoSolicitacaoDAO;
 import persistencia.ProfessorDAO;
 import persistencia.SolicitacaoDAO;
 
@@ -143,6 +148,16 @@ public class SolicitacaoBean {
     public void marcaProvaSolicitacao(){
         solicitacao.setEstado(EstadoEnum.PROVA.toString());
         salvar();
+    }
+    
+    public boolean renderNovaSolicitacao() throws ParseException{
+        PeriodoSolicitacaoDAO periodoDao = new PeriodoSolicitacaoDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = sdf.format(new Date());
+        Date dataAtual = sdf.parse(dataFormatada);
+        PeriodoSolicitacao p = periodoDao.findPeriodoValido(dataAtual);
+        
+        return p != null;
     }
     
     private String geradorProtocolo() {

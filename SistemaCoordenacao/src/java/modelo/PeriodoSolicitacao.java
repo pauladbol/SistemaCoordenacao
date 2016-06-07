@@ -6,15 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,10 +27,10 @@ public class PeriodoSolicitacao implements Serializable {
     private int id;
     
     @Column(name="data_inicio")
-    @Type(type="timestamp")
+    @Type(type="date")
     private Date dataInicio;
     @Column(name="data_fim")
-    @Type(type="timestamp")
+    @Type(type="date")
     private Date dataFim;
 
     public int getId() {

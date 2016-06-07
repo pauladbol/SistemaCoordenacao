@@ -19,7 +19,7 @@
                         <p:growl id="messages"/>
                         <p:menubar>
                             <p:menuitem value="Abrir Periodo de Solicitação" action="periodoSolicitacao"/>
-                            <p:menuitem value="Nova Solicitação" action="criarSolicitacao"/>
+                            <p:menuitem value="Nova Solicitação" action="criarSolicitacao" rendered="#{solicitacaoBean.renderNovaSolicitacao()}"/>
                             <p:menuitem value="Consultar Solicitações" action="#{solicitacaoBean.consultaSolicitacao()}"/>
                         </p:menubar>
                     </h:form>
