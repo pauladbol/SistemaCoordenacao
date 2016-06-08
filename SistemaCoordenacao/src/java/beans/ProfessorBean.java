@@ -6,11 +6,6 @@ import javax.faces.bean.SessionScoped;
 import modelo.Professor;
 import persistencia.ProfessorDAO;
 
-/**
- *
- * @author 10070077
- */
-
 @ManagedBean(name="beanProfessor")
 @SessionScoped
 public class ProfessorBean {

@@ -1,17 +1,10 @@
 package persistencia;
 
-import java.util.List;
 import javax.annotation.PreDestroy;
 import modelo.Aluno;
-import modelo.Usuario;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-/**
- *
- * @author 10070077
- */
 public class AlunoDAO {
     private Session sessao;
     

@@ -3,10 +3,6 @@ package beans;
 import modelo.Aluno;
 import persistencia.AlunoDAO;
 
-/**
- *
- * @author brunoscheltzke
- */
 public class AlunoBean {
     AlunoDAO dao = new AlunoDAO();
     Aluno aluno = new Aluno();

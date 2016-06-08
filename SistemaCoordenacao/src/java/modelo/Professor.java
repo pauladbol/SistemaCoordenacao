@@ -1,16 +1,11 @@
 package modelo;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *asdfas
- * @author 10070077
- */
 @Entity
 @Table(name="Professor")
 public class Professor implements Serializable {
@@ -18,7 +13,6 @@ public class Professor implements Serializable {
     @GeneratedValue
     private int id;
     private String nome;
-    @Column
     private int matricula;
     private boolean coordenador;
 

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package modelo;
 
 import java.io.Serializable;
@@ -12,10 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *asdfasd
- * @author brunoscheltzke
- */
 @Entity
 @Table(name="CRE")
 public class CRE implements Serializable {

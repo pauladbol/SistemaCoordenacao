@@ -8,11 +8,6 @@ import javax.faces.context.FacesContext;
 import modelo.Usuario;
 import persistencia.UsuarioDAO;
 
-/**
- *
- * @author brunof
- */
-
 @ManagedBean(name="beanUsuario")
 @SessionScoped
 public class UsuarioBean {
