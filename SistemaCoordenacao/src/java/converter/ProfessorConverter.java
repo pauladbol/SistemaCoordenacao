@@ -5,7 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import modelo.Professor;
+import modelo.Usuario;
 
 @FacesConverter("professorConverter")
 public class ProfessorConverter implements Converter{
@@ -18,7 +18,7 @@ public class ProfessorConverter implements Converter{
         SolicitacaoBean bean = context.getApplication()
                 .evaluateExpressionGet(context, "#{solicitacaoBean}",
                         SolicitacaoBean.class);
-        Professor professor = bean.findProfessorByName(value);
+        Usuario professor = bean.findProfessorByName(value);
         return professor;
     }
  
@@ -26,7 +26,7 @@ public class ProfessorConverter implements Converter{
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
         String label = null;
-        if (value instanceof Professor) {
+        if (value instanceof Usuario) {
             label = value.toString();
         }
         return label;

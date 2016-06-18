@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,12 +20,10 @@ public class Disciplina implements Serializable {
     private int id;
     private String nome;
     private String ementa;
-    @OneToOne
-    @JoinColumn(name="professor")
-    private Professor professor;
-    @OneToOne
-    @JoinColumn(name="coordenador")
-    private Professor coordenador;
+    
+    @ManyToOne
+    @JoinColumn(name="usuario")
+    private Usuario usuario;
 
     @ManyToMany(mappedBy="disciplinas")
     final private Set<Curso> cursos = new HashSet();
@@ -49,22 +48,6 @@ public class Disciplina implements Serializable {
         this.ementa = ementa;
     }
 
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Professor getCoordenador() {
-        return coordenador;
-    }
-
-    public void setCoordenador(Professor coordenador) {
-        this.coordenador = coordenador;
-    }
-    
     @Override
     public String toString() {
         return this.nome;

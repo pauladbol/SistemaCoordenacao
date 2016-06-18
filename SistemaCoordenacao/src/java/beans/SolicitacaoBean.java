@@ -21,8 +21,8 @@ import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
 import modelo.PeriodoSolicitacao;
-import modelo.Professor;
 import modelo.Solicitacao;
+import modelo.Usuario;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -41,7 +41,7 @@ public class SolicitacaoBean {
     private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
     private final ProfessorDAO professorDAO = new ProfessorDAO();
-    private List<Professor> professores;
+    private List<Usuario> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
     private Documento documento = new Documento();
@@ -79,8 +79,8 @@ public class SolicitacaoBean {
         return null;
     }
     
-    public Professor findProfessorByName(String name) {
-        for(Professor professor : professores) {
+    public Usuario findProfessorByName(String name) {
+        for(Usuario professor : professores) {
             if (professor.getNome().equals(name))
                 return professor;
         }
@@ -239,7 +239,7 @@ public class SolicitacaoBean {
         return professorDAO;
     }
 
-    public List<Professor> getProfessores() {
+    public List<Usuario> getProfessores() {
         return professores;
     }
 

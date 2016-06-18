@@ -10,20 +10,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="usuario")
-@Inheritance(strategy=InheritanceType.JOINED)
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    private int matricula;
+    private String matricula;
     private String tipo;
     private String nome;
+    private boolean coordenador;
 
-    public int getMatricula() {
+
+    public String getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(int matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
@@ -35,19 +36,20 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }    
 
-    /**
-     * @return the tipo
-     */
     public String getTipo() {
         return tipo;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
+    public boolean isCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(boolean coordenador) {
+        this.coordenador = coordenador;
+    }
     
 }
