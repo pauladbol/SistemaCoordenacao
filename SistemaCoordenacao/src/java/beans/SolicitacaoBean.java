@@ -30,7 +30,6 @@ import org.primefaces.model.UploadedFile;
 import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
 import persistencia.PeriodoSolicitacaoDAO;
-import persistencia.ProfessorDAO;
 import persistencia.SolicitacaoDAO;
 
 @ManagedBean(name="solicitacaoBean")
@@ -40,7 +39,7 @@ public class SolicitacaoBean {
     private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
     private final DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
     final private List<Disciplina> disciplinas;
-    private final ProfessorDAO professorDAO = new ProfessorDAO();
+    //private final ProfessorDAO professorDAO = new ProfessorDAO();
     private List<Usuario> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
@@ -234,11 +233,11 @@ public class SolicitacaoBean {
     public DisciplinaDAO getDisciplinaDAO() {
         return disciplinaDAO;
     }
-
+/*
     public ProfessorDAO getProfessorDAO() {
         return professorDAO;
     }
-
+*/
     public List<Usuario> getProfessores() {
         return professores;
     }

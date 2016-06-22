@@ -14,6 +14,9 @@ public class UsuarioBean {
     Usuario usuario = new Usuario();
     UsuarioDAO dao = new UsuarioDAO();
     String telaPosLogin = "";
+    private String matricula;
+    
+    public UsuarioBean(){}
     
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
@@ -23,13 +26,26 @@ public class UsuarioBean {
         return usuario;
     }
     
-    public Usuario carrega(){
-        return dao.carregar(usuario.getMatricula());
-    }
-    
     public String defineTelaPosLogin(){
         return telaPosLogin;
     }
+    
+    public String loga(){
+        usuario = dao.carregar(getMatricula());
+        
+        if(usuario==null){
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Matricula nao encontrada", "Erro de Login")
+            );
+            return null;
+        }else{
+            return "login-sucesso";
+        }
+    }
+    
+    
+    
     
     public void autentica(){
         usuario = dao.autentica(usuario.getMatricula(), usuario.getTipo());
@@ -73,6 +89,20 @@ public class UsuarioBean {
     @PreDestroy
     public void fechaSessao(){
         dao.terminaSessao();
+    }
+
+    /**
+     * @return the matricula
+     */
+    public String getMatricula() {
+        return matricula;
+    }
+
+    /**
+     * @param matricula the matricula to set
+     */
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
     
 }

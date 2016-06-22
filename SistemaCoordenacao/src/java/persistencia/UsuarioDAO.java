@@ -9,21 +9,37 @@ import org.hibernate.criterion.Restrictions;
 public class UsuarioDAO {
     private Session sessao;
     
+    
     public UsuarioDAO() {
-        sessao = HibernateUtil.getSessionFactory().getCurrentSession();
- 
+        sessao = HibernateUtil.getSessionFactory().openSession();
     }
     
-    public Usuario carregar(int matricula) {
-        return (Usuario) sessao.load(Usuario.class, matricula);
+    public Usuario carregar(String matricula) {
+        Transaction tx = sessao.beginTransaction();
+        Usuario usuario;
+        
+        try{
+            usuario = (Usuario) sessao.createCriteria(Usuario.class)
+                    .add(Restrictions.eq("matricula", matricula))
+                    .uniqueResult();
+            tx.commit();
+        }catch(Exception e){
+            tx.rollback();
+            throw e;
+        }
+        
+        return usuario;
+        
     }
     
-    public Usuario autentica(int matricula, String tipo){
+    public Usuario autentica(String matricula, String tipo){
         return (Usuario) sessao.createCriteria(Usuario.class)
                 .add(Restrictions.eq("matricula", matricula))
                 .add(Restrictions.eq("tipo", tipo))
                 .uniqueResult();
     }
+    
+    
     @PreDestroy
     public void terminaSessao(){
         sessao.close();

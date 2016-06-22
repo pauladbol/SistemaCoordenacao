@@ -13,6 +13,8 @@ public class LoginBean {
     private int matricula;
     private String telaPosLogin;
     
+    
+    /*
     public void loga(){
         switch(getTipo()){
             case "Aluno":
@@ -47,7 +49,7 @@ public class LoginBean {
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Bem vindo ao Sistema de Solicitações!", ""));
     }
-    
+    */
     public String defineTelaPosLogin(){
         return getTelaPosLogin();
     }
