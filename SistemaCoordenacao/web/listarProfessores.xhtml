@@ -18,7 +18,7 @@ and open the template in the editor.
             <h:form enctype="multipart/form-data">
                 <p:panelGrid columns="2">
                     <p:outputLabel for="professor" value="Professor:" />
-                    <p:selectOneMenu id="professor" value="#{solicitacaoBean.solicitacao.professor}" style="width:300px" >
+                    <p:selectOneMenu id="professor" value="#{solicitacaoBean.solicitacao.usuario}" style="width:300px" >
                         <f:selectItem itemLabel="Selecione um professor" itemValue="" />
                         <f:selectItems value="#{solicitacaoBean.professores}" var="professor" itemLabel="#{professor.nome}" itemValue="#{professor}"/>
                         <f:converter converterId="professorConverter"/>
