@@ -31,7 +31,7 @@ public class UsuarioBean {
     }
     
     public String loga(){
-        usuario = dao.carregar(getMatricula());
+        usuario = dao.logar(getMatricula());
         
         if(usuario==null){
             FacesContext.getCurrentInstance().addMessage(
@@ -44,11 +44,8 @@ public class UsuarioBean {
         }
     }
     
-    
-    
-    
-    public void autentica(){
-        usuario = dao.autentica(usuario.getMatricula(), usuario.getTipo());
+    /*public void autentica(){
+        usuario = dao.logar(usuario.getMatricula(), usuario.getTipo());
         if(usuario == null){
             usuario = new Usuario();
             FacesContext.getCurrentInstance().addMessage(
@@ -68,11 +65,10 @@ public class UsuarioBean {
                 case "Funcionario":
                     telaPosLogin = "periodoSolicitacao.xhtml";
                     break;
-                /** Quando Coordenador e CRE forem implementados    
                 case "CRE":
                     telaPosLogin = "";
                     break;
-                    */
+                    
                 default:
                     telaPosLogin = "loginFailed.xhtml";
                     break;
@@ -83,7 +79,7 @@ public class UsuarioBean {
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Bem vindo ao Sistema de Solicitações!", ""));
         }
-    }
+    }*/
     
     
     @PreDestroy

@@ -15,11 +15,11 @@
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel for="campoMatricula" value="Matrícula"/>
-                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{beanUsuario.matricula}"/>
+                        <p:inputText id="campoMatricula" maxlength="60" required="true" value="#{loginBean.matricula}"/>
                     </h:panelGrid>
                     <br/>
                     <br/>
-                    <p:commandButton ajax="false" value="Log in" action="#{beanUsuario.loga()}"/>
+                    <p:commandButton ajax="false" value="Log in" action="#{loginBean.logar()}"/>
                 </h:form>
             </div>
         </ui:define>

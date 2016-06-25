@@ -4,9 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="usuario")
@@ -18,6 +17,9 @@ public class Usuario implements Serializable {
     private String tipo;
     private String nome;
     private boolean coordenador;
+    
+    @Transient
+    private boolean logado;
 
 
     public String getMatricula() {
@@ -51,5 +53,12 @@ public class Usuario implements Serializable {
     public void setCoordenador(boolean coordenador) {
         this.coordenador = coordenador;
     }
-    
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }
 }

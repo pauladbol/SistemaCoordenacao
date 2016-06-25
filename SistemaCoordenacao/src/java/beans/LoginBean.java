@@ -1,106 +1,49 @@
 package beans;
 
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import modelo.Usuario;
+import persistencia.UsuarioDAO;
 
 @ManagedBean(name="loginBean")
 @SessionScoped
 public class LoginBean {
-    private int id;
-    private String tipo;
-    private int matricula;
-    private String telaPosLogin;
+    Usuario usuario;
+    private String matricula;
     
-    
-    /*
-    public void loga(){
-        switch(getTipo()){
-            case "Aluno":
-                AlunoBean aDao = new AlunoBean();
-                if(aDao.autentica(getMatricula())){
-                    setTelaPosLogin("criarSolicitacao.xhtml");
-                }else{setTelaPosLogin("loginFailed.xhtml");}
-                break;
-            case "Professor":
-                ProfessorBean pDao = new ProfessorBean();
-                if(pDao.autentica(getMatricula())){
-                    setTelaPosLogin("periodoSolicitacao.xhtml");
-                }else{setTelaPosLogin("loginFailed.xhtml");}
-                break;
-            case "CRE":
-                CREBean cdao = new CREBean();
-                if(cdao.autentica(getMatricula())){
-                    setTelaPosLogin("periodoSolicitacao.xhtml");
-                }else{setTelaPosLogin("loginFailed.xhtml");}
-                break;
-            default:
-                break;
-        }
+    public String logar(){
+        UsuarioDAO dao = new UsuarioDAO();
         
-        if(telaPosLogin.equals("loginFailed.xhtml")){
+        this.usuario = dao.logar(getMatricula());
+        
+        if(this.usuario==null){
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Matricula nao encontrada", "Erro de Login")
             );
-        }else
-        FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Bem vindo ao Sistema de Solicitações!", ""));
-    }
-    */
-    public String defineTelaPosLogin(){
-        return getTelaPosLogin();
-    }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
+            return null;
+        }
+        
+        this.usuario.setLogado(true);
+        return "index";
     }
     
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
-
-    /**
-     * @return the matricula
-     */
-    public int getMatricula() {
+    
+    public Usuario getUsuario(){
+        return usuario;
+    }
+    
+    public String getMatricula() {
         return matricula;
     }
 
-    /**
-     * @param matricula the matricula to set
-     */
-    public void setMatricula(int matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
-    }
-
-    /**
-     * @return the telaPosLogin
-     */
-    public String getTelaPosLogin() {
-        return telaPosLogin;
-    }
-
-    /**
-     * @param telaPosLogin the telaPosLogin to set
-     */
-    public void setTelaPosLogin(String telaPosLogin) {
-        this.telaPosLogin = telaPosLogin;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

@@ -17,7 +17,7 @@ public class UsuarioDAO {
         sessao = HibernateUtil.getSessionFactory().openSession();
     }
     
-    public Usuario carregar(String matricula) {
+    public Usuario logar(String matricula) {
         Transaction tx = sessao.beginTransaction();
         
         try{
@@ -60,24 +60,7 @@ public class UsuarioDAO {
                 .add(Restrictions.eq("id", prof_id)));
         }
         return professores;
-    }
-    
-    /*
-    //se pelo fato de ter foreign key retornar usuario
-    public List<Usuario> listaProfessoresByDisciplina(String disciplina){
-        return (List<Usuario>) (Usuario) sessao.createSQLQuery(
-                "select professor from disciplina where nome = ':disciplina'")
-                .list();
-    }
-    */
-    
-    public Usuario autentica(String matricula, String tipo){
-        return (Usuario) sessao.createCriteria(Usuario.class)
-                .add(Restrictions.eq("matricula", matricula))
-                .add(Restrictions.eq("tipo", tipo))
-                .uniqueResult();
-    }
-    
+    }    
     
     @PreDestroy
     public void terminaSessao(){

@@ -2,6 +2,8 @@ package persistencia;
 
 import java.util.List;
 import modelo.Disciplina;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class DisciplinaDAO {
@@ -16,7 +18,9 @@ public class DisciplinaDAO {
     }
     
     public List<Disciplina> listar() {
-        return sessao.createCriteria(Disciplina.class).list();
+        Query query = sessao.createQuery("FROM Disciplina");
+        List<Disciplina> disciplinas = query.list();
+        return disciplinas;
     } 
     
     public void salvar(Disciplina disciplina) {
