@@ -33,7 +33,8 @@ public class UsuarioDAO {
     }
     
     public List<Usuario> listaProfessores(){
-        return (List<Usuario>) (Usuario) sessao.createCriteria(Usuario.class).list();
+        List<Usuario> listaProf = (List<Usuario>) (Usuario) sessao.createCriteria(Usuario.class).list();
+        return listaProf;
     }
     
     public List<Usuario> listaCoordenadores(){
