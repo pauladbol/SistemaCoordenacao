@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.inject.spi.Bean;
+//import javax.enterprise.inject.spi.Bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -159,7 +159,32 @@ public class SolicitacaoBean {
         
         return p != null;
     }
+    //botões detalhe solicitação
+    public boolean renderEncaminharSolicitacao() {
+        //...
+        return true;
+    }
+     
+    public boolean renderListarProfessores() {
+        //...
+        return false;
+    }
     
+    public boolean renderIndeferirSolicitacao() {
+        //...
+        return false;
+    }
+    
+    public boolean renderSelecionarDataProva() {
+        //...
+        return false;
+    }
+     
+    public boolean renderReprovarSolicitacao() {
+        //...
+        return false;
+    }
+      
     private String geradorProtocolo() {
         solicitacaoDAO = new SolicitacaoDAO();
         int id = solicitacaoDAO.findUltimoId();

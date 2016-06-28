@@ -38,3 +38,7 @@
     width: 100%;
     text-align: center;
 }
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
