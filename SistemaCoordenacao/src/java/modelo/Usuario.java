@@ -1,9 +1,12 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -20,6 +23,9 @@ public class Usuario implements Serializable {
     
     @Transient
     private boolean logado;
+    
+    @OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
+    private List<Solicitacao> solicitacoes;
 
 
     public String getMatricula() {
@@ -61,4 +67,17 @@ public class Usuario implements Serializable {
     public void setLogado(boolean logado) {
         this.logado = logado;
     }
+
+    public List<Solicitacao> getSolicitacoes() {
+        return solicitacoes;
+    }
+
+    public void setSolicitacoes(List<Solicitacao> solicitacoes) {
+        this.solicitacoes = solicitacoes;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
 }

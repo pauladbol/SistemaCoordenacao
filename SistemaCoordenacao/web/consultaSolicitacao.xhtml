@@ -17,16 +17,16 @@ and open the template in the editor.
             <div class="layout-body-larger">
                 <h:form>
                     <p:dataTable value="#{solicitacaoBean.solicitacoes}" var="solicitacao" rows="10" paginator="true">
-                        <p:column>
+                        <p:column headerText="Protocolo" filterBy="#{solicitacao.protocolo}">
                             #{solicitacao.protocolo}
                         </p:column>
-                        <p:column>
+                        <p:column headerText="Tipo de Solicitação">
                             #{solicitacao.tipo}
                         </p:column>
-                        <p:column>
+                        <p:column headerText="Status">
                             #{solicitacao.estado}
                         </p:column>
-                        <p:column>
+                        <p:column headerText="Disciplina">
                             #{solicitacao.disciplina.nome}
                         </p:column>
                         <p:column>

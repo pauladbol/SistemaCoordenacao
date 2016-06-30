@@ -2,8 +2,11 @@ package persistencia;
 
 import java.util.List;
 import modelo.Solicitacao;
+import modelo.Usuario;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 public class SolicitacaoDAO {
     final private Session sessao;
@@ -12,8 +15,17 @@ public class SolicitacaoDAO {
         sessao = HibernateUtil.getSessionFactory().getCurrentSession();
     }
     
-    public List<Solicitacao> listar() {
-        return (List<Solicitacao>) this.sessao.createCriteria(Solicitacao.class).list();
+    public List<Solicitacao> listar(Usuario usuario) {
+        return this.sessao.createCriteria(Solicitacao.class)
+                .add(Restrictions.eq("usuario", usuario)).list();
+    }
+    
+    public List<Solicitacao> listar(String... status){
+        Criteria criteria = this.sessao.createCriteria(Solicitacao.class);
+        for(String s : status){
+            criteria.add(Restrictions.eq("estado", status));
+        }
+        return criteria.list();
     }
     
     public Solicitacao carregar(int id) {
