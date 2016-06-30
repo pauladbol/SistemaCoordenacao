@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -42,6 +43,16 @@ public class UsuarioBean {
         }else{
             return "login-sucesso";
         }
+    }
+    
+    public String logout(){
+        usuario = null;
+        dao.terminaSessao();
+        return "login.xhtml";
+    }
+    
+    public List<Usuario> listaProfessores(){
+        return dao.listaProfessores();
     }
     
     /*public void autentica(){

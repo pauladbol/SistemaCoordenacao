@@ -16,7 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="conteudo">
             <h:form enctype="multipart/form-data">
-                <p:panelGrid columns="2">
+                <p:panelGrid styleClass="semBorda" columns="2">
                     <p:outputLabel for="alunonome" value="Nome do Aluno:" />
                     <h:outputText id="alunonome" value="#{usuarioBean.usuario.nome}"/>
                     <p:outputLabel for="alunomatricula" value="Matricula do Aluno:" />
@@ -31,11 +31,11 @@ and open the template in the editor.
                     </p:commandButton>
                     
                     <p:commandButton value="Voltar" ajax="false" action="index"/> 
-                    <p:commandButton value="Encaminhar Solicitação" ajax="false" action="encaminharSolicitacao"/> <!--CRE-->
-                    <p:commandButton value="Aceitar Solicitação" ajax="false" action="listarProfessores"/> <!--Coordenador-->
-                    <p:commandButton value="Indeferir" ajax="false" action="indeferirSolicitacao" /> <!--Coordenador-->
-                    <p:commandButton value="Aprovar" ajax="false" action="selecionarDataProva"/> <!--Professor -->
-                    <p:commandButton value="Reprovar" ajax="false" action="reprovarSolicitacao"/> <!--Professor -->
+                    <p:commandButton value="Encaminhar Solicitação" ajax="false" action="encaminharSolicitacao" rendered="#{solicitacaoBean.renderEncaminharSolicitacao()}"/> <!--CRE-->
+                    <p:commandButton value="Aceitar Solicitação" ajax="false" action="listarProfessores" rendered="#{solicitacaoBean.renderListarProfessores()}"/> <!--Coordenador-->
+                    <p:commandButton value="Indeferir" ajax="false" action="indeferirSolicitacao" rendered="#{solicitacaoBean.renderIndeferirSolicitacao()}"/> <!--Coordenador-->
+                    <p:commandButton value="Aprovar" ajax="false" action="selecionarDataProva" rendered="#{solicitacaoBean.renderSelecionarDataProva()}"/> <!--Professor -->
+                    <p:commandButton value="Reprovar" ajax="false" action="reprovarSolicitacao" rendered="#{solicitacaoBean.renderReprovarSolicitacao()}"/> <!--Professor -->
                 </p:panelGrid>
             </h:form>
         </ui:define>

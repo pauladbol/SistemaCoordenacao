@@ -163,7 +163,32 @@ public class SolicitacaoBean {
         
         return p != null;
     }
+    //botões detalhe solicitação
+    public boolean renderEncaminharSolicitacao() {
+        //...
+        return true;
+    }
+     
+    public boolean renderListarProfessores() {
+        //...
+        return false;
+    }
     
+    public boolean renderIndeferirSolicitacao() {
+        //...
+        return false;
+    }
+    
+    public boolean renderSelecionarDataProva() {
+        //...
+        return false;
+    }
+     
+    public boolean renderReprovarSolicitacao() {
+        //...
+        return false;
+    }
+      
     private String geradorProtocolo() {
         solicitacaoDAO = new SolicitacaoDAO();
         int id = solicitacaoDAO.findUltimoId();
