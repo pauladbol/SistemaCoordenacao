@@ -166,28 +166,44 @@ public class SolicitacaoBean {
     }
     //botões detalhe solicitação
     public boolean renderEncaminharSolicitacao() {
-        //...
-        return true;
+        if (usuarioLogado.getTipo().equals("CRE") && solicitacao.getEstado().equals("Entregue")){
+                return true;
+        }else{
+                return false;
+        }
     }
      
     public boolean renderListarProfessores() {
-        //...
-        return false;
+        if (usuarioLogado.isCoordenador() == true && solicitacao.getEstado().equals("Em pré-análise")){
+                return true;
+        }else{
+                return false;
+        }
     }
     
     public boolean renderIndeferirSolicitacao() {
-        //...
-        return false;
+        if (usuarioLogado.isCoordenador() == true && (solicitacao.getEstado().equals("Em pré-análise")
+                || solicitacao.getEstado().equals("Aprovado") || solicitacao.getEstado().equals("Reprovado"))){
+                return true;
+        }else{
+                return false;
+        }
     }
     
     public boolean renderSelecionarDataProva() {
-        //...
-        return false;
+        if (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise")){
+                return true;
+        }else{
+                return false;
+        }
     }
      
     public boolean renderReprovarSolicitacao() {
-        //...
-        return false;
+        if (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise")){
+                return true;
+        }else{
+                return false;
+        }
     }
       
     private String geradorProtocolo() {
