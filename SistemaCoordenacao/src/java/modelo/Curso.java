@@ -7,13 +7,17 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +34,10 @@ public class Curso implements Serializable {
 			inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
 
     private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+    
+    @OneToOne
+    @JoinColumn(name="coordenador")
+    private Usuario coordenador;
     
     public int getId() {
         return id;
