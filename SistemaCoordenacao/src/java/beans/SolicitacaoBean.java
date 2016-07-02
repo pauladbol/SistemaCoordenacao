@@ -47,7 +47,7 @@ public class SolicitacaoBean {
     private UploadedFile arquivo;
     private List<Documento> documentos = new ArrayList();
     private StreamedContent arquivoDownload;
-    private Usuario usuarioLogado;
+    private final Usuario usuarioLogado;
     
     /*@ManagedProperty(value="#{loginBean}")
     private LoginBean loginBean;*/
@@ -163,7 +163,7 @@ public class SolicitacaoBean {
         Date dataAtual = sdf.parse(dataFormatada);
         PeriodoSolicitacao p = periodoDao.findPeriodoValido(dataAtual);
         
-        return p != null;
+        return p != null && usuarioLogado.getTipo().equalsIgnoreCase("Aluno");
     }
     //botões detalhe solicitação
     public boolean renderEncaminharSolicitacao() {
@@ -172,20 +172,24 @@ public class SolicitacaoBean {
      
     public boolean renderListarProfessores() {
         return (usuarioLogado.isCoordenador() == true 
-                && solicitacao.getEstado().equals("Em pré-análise"));
+                && solicitacao.getEstado().equalsIgnoreCase("Em pré-análise"));
     }
     
     public boolean renderIndeferirSolicitacao() {
         return (usuarioLogado.isCoordenador() == true && (solicitacao.getEstado().equals("Em pré-análise")
-                || solicitacao.getEstado().equals("Aprovado") || solicitacao.getEstado().equals("Reprovado")));
+                || solicitacao.getEstado().equalsIgnoreCase("Aprovado") || solicitacao.getEstado().equals("Reprovado")));
     }
     
     public boolean renderSelecionarDataProva() {
-        return (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise"));
+        return (usuarioLogado.getTipo().equalsIgnoreCase("Professor") && solicitacao.getEstado().equals("Em análise"));
     }
      
     public boolean renderReprovarSolicitacao() {
-        return (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise"));
+        return (usuarioLogado.getTipo().equalsIgnoreCase("Professor") && solicitacao.getEstado().equals("Em análise"));
+    }
+    
+    public boolean renderAbrirPeriodoSolicitacao(){
+        return (usuarioLogado.getTipo().equalsIgnoreCase("cre"));
     }
       
     private String geradorProtocolo() {
@@ -227,7 +231,7 @@ public class SolicitacaoBean {
     
     private void consultaSolicitacaoCRE(){
         this.solicitacaoDAO = new SolicitacaoDAO();
-        this.solicitacoes = this.solicitacaoDAO.listar("Entregue");
+        this.solicitacoes = this.solicitacaoDAO.listar("Entregue", "Deferido", "Indeferido");
     }
     
     private void consultaSolicitacaoAluno(){
