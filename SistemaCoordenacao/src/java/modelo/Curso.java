@@ -54,6 +54,22 @@ public class Curso implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Set<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(Set<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
+    public Usuario getCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(Usuario coordenador) {
+        this.coordenador = coordenador;
+    }
     
     
 }

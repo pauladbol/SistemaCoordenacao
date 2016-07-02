@@ -85,5 +85,14 @@ public class Usuario implements Serializable {
     public int getId() {
         return id;
     }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+    
     
 }
