@@ -18,9 +18,9 @@ and open the template in the editor.
             <h:form enctype="multipart/form-data">
                 <p:panelGrid styleClass="semBorda" columns="2">
                     <p:outputLabel for="alunonome" value="Nome do Aluno:" />
-                    <h:outputText id="alunonome" value="#{usuarioBean.usuario.nome}"/>
+                    <h:outputText id="alunonome" value="#{solicitacaoBean.solicitacao.usuario.nome}"/>
                     <p:outputLabel for="alunomatricula" value="Matricula do Aluno:" />
-                    <h:outputText id="alunomatricula" value="#{usuarioBean.usuario.matricula}"/>
+                    <h:outputText id="alunomatricula" value="#{solicitacaoBean.solicitacao.usuario.matricula}"/>
                     <p:outputLabel for="tipo" value="Tipo de Solicitação:" />
                     <h:outputText id="tipo" value="#{solicitacaoBean.solicitacao.tipo}"/>
                     <p:outputLabel for="disciplina" value="Disciplina:" />

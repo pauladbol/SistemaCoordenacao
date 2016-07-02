@@ -52,6 +52,7 @@ public class UsuarioBean {
     }
     
     public List<Usuario> listaProfessores(){
+        dao = new UsuarioDAO();
         return dao.listaProfessores();
     }
     

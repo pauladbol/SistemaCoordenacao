@@ -129,6 +129,7 @@ public class SolicitacaoBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
             return "";
         }
+        consultaSolicitacaoCRE();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
@@ -166,44 +167,25 @@ public class SolicitacaoBean {
     }
     //botões detalhe solicitação
     public boolean renderEncaminharSolicitacao() {
-        if (usuarioLogado.getTipo().equals("CRE") && solicitacao.getEstado().equals("Entregue")){
-                return true;
-        }else{
-                return false;
-        }
+        return (usuarioLogado.getTipo().equalsIgnoreCase("cre") && solicitacao.getEstado().equals("Entregue"));
     }
      
     public boolean renderListarProfessores() {
-        if (usuarioLogado.isCoordenador() == true && solicitacao.getEstado().equals("Em pré-análise")){
-                return true;
-        }else{
-                return false;
-        }
+        return (usuarioLogado.isCoordenador() == true 
+                && solicitacao.getEstado().equals("Em pré-análise"));
     }
     
     public boolean renderIndeferirSolicitacao() {
-        if (usuarioLogado.isCoordenador() == true && (solicitacao.getEstado().equals("Em pré-análise")
-                || solicitacao.getEstado().equals("Aprovado") || solicitacao.getEstado().equals("Reprovado"))){
-                return true;
-        }else{
-                return false;
-        }
+        return (usuarioLogado.isCoordenador() == true && (solicitacao.getEstado().equals("Em pré-análise")
+                || solicitacao.getEstado().equals("Aprovado") || solicitacao.getEstado().equals("Reprovado")));
     }
     
     public boolean renderSelecionarDataProva() {
-        if (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise")){
-                return true;
-        }else{
-                return false;
-        }
+        return (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise"));
     }
      
     public boolean renderReprovarSolicitacao() {
-        if (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise")){
-                return true;
-        }else{
-                return false;
-        }
+        return (usuarioLogado.getTipo().equals("Professor") && solicitacao.getEstado().equals("Em análise"));
     }
       
     private String geradorProtocolo() {
@@ -230,8 +212,13 @@ public class SolicitacaoBean {
                 consultaSolicitacaoAluno();
                 break;
             case "Professor":
-            case "CRE":
+                consultaSolicitacaoProfessor();
+                if (this.usuarioLogado.isCoordenador())
+                    consultaSolicitacaoCoordenador();
+                break;
+            case "cre":
                 consultaSolicitacaoCRE();
+                break;
             default:
                 return null;
         }
@@ -239,13 +226,26 @@ public class SolicitacaoBean {
     }
     
     private void consultaSolicitacaoCRE(){
-        solicitacaoDAO = new SolicitacaoDAO();
-        this.solicitacoes = solicitacaoDAO.listar("Entregue");
+        this.solicitacaoDAO = new SolicitacaoDAO();
+        this.solicitacoes = this.solicitacaoDAO.listar("Entregue");
     }
     
     private void consultaSolicitacaoAluno(){
-        solicitacaoDAO = new SolicitacaoDAO();
-        this.solicitacoes = solicitacaoDAO.listar(this.usuarioLogado);
+        this.solicitacaoDAO = new SolicitacaoDAO();
+        this.solicitacoes = this.solicitacaoDAO.listar(this.usuarioLogado);
+    }
+    
+    private void consultaSolicitacaoProfessor(){
+        this.solicitacaoDAO = new SolicitacaoDAO();
+        this.solicitacoes = this.solicitacaoDAO.listar(this.usuarioLogado, "Em análise");
+    }
+    
+    private void consultaSolicitacaoCoordenador(){
+        this.solicitacaoDAO = new SolicitacaoDAO();
+        List<Solicitacao> solicitacoesCoordenador = this.solicitacaoDAO.listar("Em pré-análise", "Aprovado", "Reprovado");
+        for(Solicitacao s : solicitacoesCoordenador) {
+            this.solicitacoes.add(s);
+        }
     }
     
     public String detalhesSolicitacao(Solicitacao solicitacao){

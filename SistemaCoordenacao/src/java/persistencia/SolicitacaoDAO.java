@@ -1,12 +1,15 @@
 package persistencia;
 
+import com.sun.xml.xsom.impl.RestrictionSimpleTypeImpl;
 import java.util.List;
 import modelo.Solicitacao;
 import modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.DisjunctionFragment;
 
 public class SolicitacaoDAO {
     final private Session sessao;
@@ -22,9 +25,22 @@ public class SolicitacaoDAO {
     
     public List<Solicitacao> listar(String... status){
         Criteria criteria = this.sessao.createCriteria(Solicitacao.class);
+        Disjunction d = Restrictions.disjunction();
         for(String s : status){
-            criteria.add(Restrictions.eq("estado", status));
+            d.add(Restrictions.eq("estado", s));
         }
+        criteria.add(d);
+        return criteria.list();
+    }
+    
+    public List<Solicitacao> listar(Usuario usuario, String... status){
+        Criteria criteria = this.sessao.createCriteria(Solicitacao.class);
+        criteria.add(Restrictions.eq("professor", usuario));
+        Disjunction d = Restrictions.disjunction();
+        for(String s : status){
+            d.add(Restrictions.eq("estado", s));
+        }
+        criteria.add(d);
         return criteria.list();
     }
     
