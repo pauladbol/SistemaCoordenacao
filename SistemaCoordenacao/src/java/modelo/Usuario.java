@@ -20,12 +20,21 @@ public class Usuario implements Serializable {
     private String tipo;
     private String nome;
     private boolean coordenador;
+    private String email;
     
     @Transient
     private boolean logado;
     
     @OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
     private List<Solicitacao> solicitacoes;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
     public String getMatricula() {

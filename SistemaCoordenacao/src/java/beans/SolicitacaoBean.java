@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import modelo.Disciplina;
 import modelo.Documento;
 import modelo.EstadoEnum;
+import modelo.MensagemEnum;
 import modelo.PeriodoSolicitacao;
 import modelo.Solicitacao;
 import modelo.Usuario;
@@ -32,6 +33,7 @@ import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
 import persistencia.PeriodoSolicitacaoDAO;
 import persistencia.SolicitacaoDAO;
+import service.EmailService;
 
 @ManagedBean(name="solicitacaoBean")
 @SessionScoped
@@ -109,14 +111,20 @@ public class SolicitacaoBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
             return;
         }
+        EmailService.enviarEmail(MensagemEnum.ENTREGUE_ALUNO.toString(), novaSolicitacao.getUsuario().getEmail(), novaSolicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.ENTREGUE_CRE.toString(), "cre123cre@gmail.com", novaSolicitacao.getProtocolo());
         
         this.novaSolicitacao = new Solicitacao();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
+        
+       
     }
     
     public void indeferirSolicitacao(){
         solicitacao.setEstado(EstadoEnum.INDEFERIDO.toString());
+        
+        EmailService.enviarEmail(MensagemEnum.INDEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
         salvar();
     }
     
@@ -133,26 +141,36 @@ public class SolicitacaoBean {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
+       // EmailService.enviarEmail(MensagemEnum.PRE_ANALISE.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
         return "consultaSolicitacao";
     }
     
     public void aceitarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.ANALISE.toString());
+
+        EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
     }
     
     public void aprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.APROVADO.toString());
+
+    //    EmailService.enviarEmail(MensagemEnum.APROVADO.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
         salvar();
     }
     
     public void reprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.REPROVADO.toString());
+  
+    //    EmailService.enviarEmail(MensagemEnum.REPROVADO.toString(), solicitacao.getCoordenador.getEmail(), solicitacao.getProtocolo());
         salvar();
     }
     
     public void marcaProvaSolicitacao(){
         solicitacao.setEstado(EstadoEnum.PROVA.toString());
+   
+        EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
     }
     
