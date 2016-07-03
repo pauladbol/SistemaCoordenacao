@@ -35,6 +35,10 @@ public class Solicitacao implements Serializable {
     @OneToMany
     private List<Documento> documentos;
     
+    @ManyToOne
+    @JoinColumn(name="coordenador")
+    private Usuario coordenador;
+    
     public int getId() {
         return id;
     }
@@ -114,6 +118,14 @@ public class Solicitacao implements Serializable {
 
     public void setProfessor(Usuario professor) {
         this.professor = professor;
+    }
+
+    public Usuario getCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(Usuario coordenador) {
+        this.coordenador = coordenador;
     }
     
 }

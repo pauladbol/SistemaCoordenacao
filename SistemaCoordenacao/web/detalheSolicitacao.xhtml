@@ -29,14 +29,15 @@ and open the template in the editor.
                     <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{solicitacaoBean.arquivoDownload}" />
                     </p:commandButton>
-                    
+                </p:panelGrid>
+                <br/>
                     <p:commandButton value="Voltar" ajax="false" action="index"/> 
-                    <p:commandButton value="Encaminhar Solicitação" ajax="false" action="encaminharSolicitacao" rendered="#{solicitacaoBean.renderEncaminharSolicitacao()}"/> <!--CRE-->
-                    <p:commandButton value="Aceitar Solicitação" ajax="false" action="listarProfessores" rendered="#{solicitacaoBean.renderListarProfessores()}"/> <!--Coordenador-->
+                    <p:commandButton value="Encaminhar" ajax="false" action="encaminharSolicitacao" rendered="#{solicitacaoBean.renderEncaminharSolicitacao()}"/> <!--CRE-->
+                    <p:commandButton value="Aceitar" ajax="false" action="listarProfessores" rendered="#{solicitacaoBean.renderListarProfessores()}"/> <!--Coordenador--> 
                     <p:commandButton value="Indeferir" ajax="false" action="indeferirSolicitacao" rendered="#{solicitacaoBean.renderIndeferirSolicitacao()}"/> <!--Coordenador-->
                     <p:commandButton value="Aprovar" ajax="false" action="selecionarDataProva" rendered="#{solicitacaoBean.renderSelecionarDataProva()}"/> <!--Professor -->
                     <p:commandButton value="Reprovar" ajax="false" action="reprovarSolicitacao" rendered="#{solicitacaoBean.renderReprovarSolicitacao()}"/> <!--Professor -->
-                </p:panelGrid>
+                
             </h:form>
         </ui:define>
     </ui:composition>

@@ -98,7 +98,7 @@ public class SolicitacaoBean {
         this.novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         this.novaSolicitacao.setUsuario(getUsuarioLogado());
         DocumentoDAO documentoDAO = new DocumentoDAO();
-        
+        this.novaSolicitacao.setCoordenador(getUsuarioLogado().getCurso().getCoordenador());
         try {
             this.documento.setNome(this.arquivo.getFileName());
             this.documento.setTamanho(this.arquivo.getSize());

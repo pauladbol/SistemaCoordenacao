@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -27,6 +29,10 @@ public class Usuario implements Serializable {
     
     @OneToMany(mappedBy="usuario", fetch = FetchType.LAZY)
     private List<Solicitacao> solicitacoes;
+    
+    @OneToOne
+    @JoinColumn(name="curso")
+    private Curso curso;
 
     public String getEmail() {
         return email;
@@ -88,5 +94,14 @@ public class Usuario implements Serializable {
     public int getId() {
         return id;
     }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+    
     
 }

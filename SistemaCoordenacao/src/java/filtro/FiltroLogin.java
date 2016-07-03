@@ -43,6 +43,33 @@ public class FiltroLogin implements Filter {
                     redirecionar = true;
                 else if(!bean.getUsuario().isLogado())
                         redirecionar = true;
+                else {
+                    String tipoUsuario = bean.getUsuario().getTipo();
+                    switch(tipoUsuario){
+                        case "cre":
+                            if(req.getRequestURI().endsWith("/criarSolicitacao.xhtml") 
+                                    || req.getRequestURI().endsWith("/indeferirSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/listarProfessores.xhtml")
+                                    || req.getRequestURI().endsWith("/reprovarSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/selecionarDataProva.xhtml"))
+                                ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
+                            break;
+                        case "professor":
+                            if(req.getRequestURI().endsWith("/periodoSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/criarSolicitacao.xhtml"))
+                                ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
+                            break;
+                        case "aluno":
+                            if(req.getRequestURI().endsWith("/periodoSolicitacao.xhtml") 
+                                    || req.getRequestURI().endsWith("/encaminharSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/indeferirSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/listarProfessores.xhtml")
+                                    || req.getRequestURI().endsWith("/reprovarSolicitacao.xhtml")
+                                    || req.getRequestURI().endsWith("/selecionarDataProva.xhtml"))
+                                ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
+                            break;
+                    }
+                }
             }
         }
         if(redirecionar)
