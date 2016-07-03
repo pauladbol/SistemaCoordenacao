@@ -43,25 +43,10 @@ public class UsuarioDAO {
                 .list();
     }
     
-    //the gambiarra
-    //achar jeito melhor de fazer
-    //ver se o metodo comentado funciona
-    public List<Usuario> listaProfessoresByDisciplina(String disciplina){
-        ArrayList<Integer> nome_professores;
-        List<Usuario> professores = new ArrayList<>();
-        
-        //pega todos id de prof por disciplina
-        nome_professores = (ArrayList<Integer>) sessao.createSQLQuery(
-                "select professor from disciplina where nome = ':disciplina'")
+    public List<Usuario> listaProfessoresByDisciplina(int disciplina){
+        return sessao.createSQLQuery("select * from usuario where id in (select disciplina_professor.id_professor from disciplina_professor where disciplina_professor.id_Disciplina = :disciplina);")
                 .list();
-        
-        //pra cada id, adiciona o usuario 
-        for(int prof_id : nome_professores){
-            professores.add((Usuario) sessao.createCriteria(Usuario.class)
-                .add(Restrictions.eq("id", prof_id)));
-        }
-        return professores;
-    }    
+        }  
     
     @PreDestroy
     public void terminaSessao(){

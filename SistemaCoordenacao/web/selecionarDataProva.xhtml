@@ -18,7 +18,7 @@ and open the template in the editor.
             <h:form enctype="multipart/form-data">
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Data de ínicio:"/>
-                    <p:calendar value=""/>
+                    <p:calendar value="#{solicitacaoBean.solicitacao.dataProva}"/>
                     
                     <p:commandButton value="Voltar" ajax="false" action="detalheSolicitacao"/> 
                     <p:commandButton value="Aprovar" ajax="false" actionListener="#{solicitacaoBean.marcaProvaSolicitacao()}"/> 
