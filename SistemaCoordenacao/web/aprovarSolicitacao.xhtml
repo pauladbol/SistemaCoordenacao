@@ -12,16 +12,16 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="layout.xhtml">
         <ui:define name="titulo">
-            Indeferir Solicitação
+            Aprovar Solicitação
         </ui:define>
         <ui:define name="conteudo">
             <h:form enctype="multipart/form-data">
                 <p:panelGrid columns="2">
-                    <p:outputLabel for="justificativa" value="Justificativa:" />
-                    <h:inputTextarea id="justificativa" rows="10" cols="50" value="#{solicitacaoBean.solicitacao.justificativa}" required/>
-                                       
+                    <p:outputLabel for="observacao" value="Observações:" />
+                    <h:inputTextarea id="observacao" rows="10" cols="50" value="#{solicitacaoBean.solicitacao.observacao}"/>
+                               
                     <p:commandButton value="Voltar" ajax="false" action="detalheSolicitacao"/>  
-                    <p:commandButton value="Salvar" ajax="false" actionListener="#{solicitacaoBean.indeferirSolicitacao()}" action="consultaSolicitacao"/> 
+                    <p:commandButton value="Salvar" ajax="false" actionListener="#{solicitacaoBean.aprovarSolicitacao()}" action="consultaSolicitacao"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>
