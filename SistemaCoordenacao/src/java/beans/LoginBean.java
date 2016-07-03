@@ -31,6 +31,14 @@ public class LoginBean {
         return "index";
     }
     
+    public String logout(){
+        UsuarioDAO dao = new UsuarioDAO();
+        this.usuario.setLogado(false);
+        this.usuario = null;
+        dao.terminaSessao();
+        return "login.xhtml";
+    }
+    
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }

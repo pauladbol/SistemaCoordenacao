@@ -33,6 +33,7 @@ import persistencia.DisciplinaDAO;
 import persistencia.DocumentoDAO;
 import persistencia.PeriodoSolicitacaoDAO;
 import persistencia.SolicitacaoDAO;
+import persistencia.UsuarioDAO;
 import service.EmailService;
 
 @ManagedBean(name="solicitacaoBean")
@@ -50,6 +51,7 @@ public class SolicitacaoBean {
     private List<Documento> documentos = new ArrayList();
     private StreamedContent arquivoDownload;
     private final Usuario usuarioLogado;
+    private UsuarioDAO userDao = new UsuarioDAO();
     
     /*@ManagedProperty(value="#{loginBean}")
     private LoginBean loginBean;*/
@@ -92,6 +94,10 @@ public class SolicitacaoBean {
                 return professor;
         }
         return null;
+    }
+    
+    public List<Usuario> listaProfessoresByDisciplina(){
+        return getUserDao().listaProfessoresByDisciplina(solicitacao.getDisciplina().getId());
     }
     
     public void criarSolicitacao() {
@@ -146,7 +152,13 @@ public class SolicitacaoBean {
     }
     
     public void aceitarSolicitacao(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage msg;
+        
         solicitacao.setEstado(EstadoEnum.ANALISE.toString());
+        msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                    "Professor selecionado com sucesso!", "");
+            context.addMessage(null, msg);
 
         EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
@@ -166,12 +178,30 @@ public class SolicitacaoBean {
         salvar();
     }
     
-    public void marcaProvaSolicitacao(){
+    public String marcaProvaSolicitacao() throws ParseException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage msg;
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = sdf.format(new Date());
+        Date dataAtual = sdf.parse(dataFormatada);
+        
+        if (solicitacao.getDataProva().before(dataAtual)){
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                    "A data da prova deve ser maior ou igual a data atual!", "");
+            context.addMessage(null, msg);
+            return "";
+        }
+        
         solicitacao.setEstado(EstadoEnum.PROVA.toString());
    
         EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
         EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
+        msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                    "A data da prova foi marcada com sucesso!", "");
+            context.addMessage(null, msg);
+        return "detalheSolicitacao";
     }
     
     public boolean renderNovaSolicitacao() throws ParseException{
@@ -356,5 +386,19 @@ public class SolicitacaoBean {
 
     public StreamedContent getArquivoDownload() {
         return arquivoDownload;
+    }
+
+    /**
+     * @return the userDao
+     */
+    public UsuarioDAO getUserDao() {
+        return userDao;
+    }
+
+    /**
+     * @param userDao the userDao to set
+     */
+    public void setUserDao(UsuarioDAO userDao) {
+        this.userDao = userDao;
     }
 }

@@ -1,7 +1,9 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="solicitacao")
@@ -38,6 +41,10 @@ public class Solicitacao implements Serializable {
     @ManyToOne
     @JoinColumn(name="coordenador")
     private Usuario coordenador;
+    
+    @Column(name="data_prova")
+    @Type(type="date")
+    private Date dataProva;
     
     public int getId() {
         return id;
@@ -126,6 +133,20 @@ public class Solicitacao implements Serializable {
 
     public void setCoordenador(Usuario coordenador) {
         this.coordenador = coordenador;
+    }
+
+    /**
+     * @return the dataProva
+     */
+    public Date getDataProva() {
+        return dataProva;
+    }
+
+    /**
+     * @param dataProva the dataProva to set
+     */
+    public void setDataProva(Date dataProva) {
+        this.dataProva = dataProva;
     }
     
 }
