@@ -2,6 +2,8 @@ package persistencia;
 
 import com.sun.xml.xsom.impl.RestrictionSimpleTypeImpl;
 import java.util.List;
+import modelo.Curso;
+import modelo.Disciplina;
 import modelo.Solicitacao;
 import modelo.Usuario;
 import org.hibernate.Criteria;
@@ -60,6 +62,11 @@ public class SolicitacaoDAO {
             return (int) query.uniqueResult();
         }
         return 0;
+    }
+    
+    public List<Disciplina> listarDisciplinas(Curso curso) {
+        return this.sessao.createCriteria(Disciplina.class).
+                add(Restrictions.eq("curso", curso)).list();
     }
     
     public static void main(String[] args) {

@@ -41,7 +41,7 @@ public class SolicitacaoBean {
     private List<Solicitacao> solicitacoes = new ArrayList<>();
     private SolicitacaoDAO solicitacaoDAO;
     private final DisciplinaDAO disciplinaDAO;
-    final private List<Disciplina> disciplinas;
+    private List<Disciplina> disciplinas;
     private List<Usuario> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
@@ -181,6 +181,8 @@ public class SolicitacaoBean {
         Date dataAtual = sdf.parse(dataFormatada);
         PeriodoSolicitacao p = periodoDao.findPeriodoValido(dataAtual);
         
+        listaDisciplinas();
+        
         return p != null && usuarioLogado.getTipo().equalsIgnoreCase("Aluno");
     }
     //botões detalhe solicitação
@@ -225,6 +227,10 @@ public class SolicitacaoBean {
         protocolo += "000";
         protocolo += id;
         return protocolo;
+    }
+    
+    public void listaDisciplinas(){
+        this.disciplinas = this.disciplinaDAO.listarDisciplinas(this.getUsuarioLogado().getCurso());
     }
     
     public String consultaSolicitacao(){
