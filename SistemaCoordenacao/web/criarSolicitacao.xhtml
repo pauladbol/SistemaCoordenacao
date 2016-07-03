@@ -30,7 +30,7 @@ and open the template in the editor.
                         <f:converter converterId="disciplinaConverter"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="anexo" value="Anexo:" />
-                    <p:fileUpload id="anexo" value="#{solicitacaoBean.arquivo}" mode="simple" allowTypes="/(\.|\/)(zip|rar|7z)$/" required/>
+                    <p:fileUpload id="anexo" value="#{solicitacaoBean.arquivo}" mode="simple" allowTypes="/(\.|\/)(zip|rar|7z)$/" required="true"/>
                     <p:commandButton value="Cancelar" ajax="false" action="index"/> 
                     <p:commandButton value="Enviar Solicitação" ajax="false" actionListener="#{solicitacaoBean.criarSolicitacao()}" action="index"/> 
                 </p:panelGrid>

@@ -54,12 +54,12 @@ public class FiltroLogin implements Filter {
                                     || req.getRequestURI().endsWith("/selecionarDataProva.xhtml"))
                                 ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
                             break;
-                        case "professor":
+                        case "Professor":
                             if(req.getRequestURI().endsWith("/periodoSolicitacao.xhtml")
                                     || req.getRequestURI().endsWith("/criarSolicitacao.xhtml"))
                                 ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
                             break;
-                        case "aluno":
+                        case "Aluno":
                             if(req.getRequestURI().endsWith("/periodoSolicitacao.xhtml") 
                                     || req.getRequestURI().endsWith("/encaminharSolicitacao.xhtml")
                                     || req.getRequestURI().endsWith("/indeferirSolicitacao.xhtml")
@@ -67,6 +67,8 @@ public class FiltroLogin implements Filter {
                                     || req.getRequestURI().endsWith("/reprovarSolicitacao.xhtml")
                                     || req.getRequestURI().endsWith("/selecionarDataProva.xhtml"))
                                 ((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/faces/index.xhtml");
+                            break;
+                        default:
                             break;
                     }
                 }

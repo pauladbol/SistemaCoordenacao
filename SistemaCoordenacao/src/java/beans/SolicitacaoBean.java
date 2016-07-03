@@ -41,7 +41,7 @@ import service.EmailService;
 public class SolicitacaoBean {
     private List<Solicitacao> solicitacoes = new ArrayList<>();
     private SolicitacaoDAO solicitacaoDAO;
-    private final DisciplinaDAO disciplinaDAO;
+    private DisciplinaDAO disciplinaDAO;
     private List<Disciplina> disciplinas;
     private List<Usuario> professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
@@ -211,7 +211,7 @@ public class SolicitacaoBean {
         Date dataAtual = sdf.parse(dataFormatada);
         PeriodoSolicitacao p = periodoDao.findPeriodoValido(dataAtual);
         
-        listaDisciplinas();
+//        listaDisciplinas();
         
         return p != null && usuarioLogado.getTipo().equalsIgnoreCase("Aluno");
     }
@@ -260,6 +260,7 @@ public class SolicitacaoBean {
     }
     
     public void listaDisciplinas(){
+        this.disciplinaDAO = new DisciplinaDAO();
         this.disciplinas = this.disciplinaDAO.listarDisciplinas(this.getUsuarioLogado().getCurso());
     }
     
