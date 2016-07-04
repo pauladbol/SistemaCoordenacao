@@ -36,6 +36,12 @@ import persistencia.SolicitacaoDAO;
 import persistencia.UsuarioDAO;
 import service.EmailService;
 
+//import org.apache.poi.xwpf.usermodel.XWPFDocument;
+//import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+//import org.apache.poi.xwpf.usermodel.XWPFRun;
+//import java.io.File;
+//import java.io.FileOutputStream;
+
 @ManagedBean(name="solicitacaoBean")
 @SessionScoped
 public class SolicitacaoBean {
@@ -110,7 +116,7 @@ public class SolicitacaoBean {
             this.documento.setNome(this.arquivo.getFileName());
             this.documento.setTamanho(this.arquivo.getSize());
             this.documento.setArquivo(IOUtils.toByteArray(this.arquivo.getInputstream()));
-                            
+            
             if (this.documento.getTamanho() == 0) {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "A solicitação deve ter algum arquivo anexo!", "");
                 FacesContext.getCurrentInstance().addMessage(null, message);
@@ -139,6 +145,13 @@ public class SolicitacaoBean {
         solicitacao.setEstado(EstadoEnum.INDEFERIDO.toString());
         
         EmailService.enviarEmail(MensagemEnum.INDEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
+        salvar();
+    }
+
+    public void deferirSolicitacao(){
+        solicitacao.setEstado(EstadoEnum.DEFERIDO.toString());
+        criarDocumentoFinal("C:\\" + solicitacao.getProtocolo() + solicitacao.getTipo() + solicitacao.getUsuario().getNome() + ".docx");
+//        EmailService.enviarEmail(MensagemEnum.DEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
         salvar();
     }
     
@@ -249,7 +262,20 @@ public class SolicitacaoBean {
     public boolean renderAbrirPeriodoSolicitacao(){
         return (usuarioLogado.getTipo().equalsIgnoreCase("cre"));
     }
+     
+    public boolean renderAprovarSolicitacao(){
+        return (usuarioLogado.getTipo().equalsIgnoreCase("Professor") && solicitacao.getEstado().equals("Aguardando Prova"));
+    }
       
+    public boolean renderDeferirSolicitacao(){
+        return (usuarioLogado.isCoordenador() && solicitacao.getEstado().equals("Aprovado"));
+    }
+    
+    public boolean renderObservacao() {
+        return (usuarioLogado.isCoordenador() && (solicitacao.getEstado().equals("Em pré-análise")
+                || solicitacao.getEstado().equals("Aprovado")));
+    }
+    
     private String geradorProtocolo() {
         solicitacaoDAO = new SolicitacaoDAO();
         int id = solicitacaoDAO.findUltimoId();
@@ -416,4 +442,29 @@ public class SolicitacaoBean {
     public void setUserDao(UsuarioDAO userDao) {
         this.userDao = userDao;
     }
+    
+//    public void criarDocumentoFinal(String fileName) {
+//        try {
+//                File file = new File(fileName);
+//                FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
+//
+//                XWPFDocument doc = new XWPFDocument();
+//                XWPFParagraph tempParagraph = doc.createParagraph();
+//                XWPFRun tempRun = tempParagraph.createRun();
+//
+//                tempRun.setText("A solicitação de " + solicitacao.getTipo() + " foi deferida./n Protocolo: " 
+//                                + solicitacao.getProtocolo() + "/n Aluno: " 
+//                                + solicitacao.getUsuario() + "/n /n Assinaturas: /n ____________________ /n /n ____________________");
+//                tempRun.setFontSize(12);
+//                doc.write(fos);
+//                fos.close();
+//                
+//                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento criado com sucesso!", "");
+//                FacesContext.getCurrentInstance().addMessage(null, message);
+//                System.out.println(file.getAbsolutePath()+ " criad!");
+//
+//        } catch (Exception e) {
+//            System.out.println("ERRO");
+//        }
+//    }
 }
