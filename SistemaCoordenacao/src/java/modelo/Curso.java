@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Curso implements Serializable {
 			@JoinColumn(name = "curso_id") }, 
 			inverseJoinColumns = { @JoinColumn(name = "disciplina_id") })
 
-    private Set<Disciplina> disciplinas = new HashSet<Disciplina>();
+    private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
     
     @OneToOne
     @JoinColumn(name="coordenador")
@@ -55,11 +56,11 @@ public class Curso implements Serializable {
         this.nome = nome;
     }
 
-    public Set<Disciplina> getDisciplinas() {
+    public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
 
-    public void setDisciplinas(Set<Disciplina> disciplinas) {
+    public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
 

@@ -58,7 +58,7 @@ public class SolicitacaoBean {
     
     public SolicitacaoBean() {
         this.disciplinaDAO = new DisciplinaDAO();
-        this.disciplinas = disciplinaDAO.listar();
+        this.disciplinas = getUsuarioLogado().getCurso().getDisciplinas();
         this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.usuarioLogado = getUsuarioLogado();
     }
@@ -105,10 +105,18 @@ public class SolicitacaoBean {
         this.novaSolicitacao.setUsuario(getUsuarioLogado());
         DocumentoDAO documentoDAO = new DocumentoDAO();
         this.novaSolicitacao.setCoordenador(getUsuarioLogado().getCurso().getCoordenador());
+        
         try {
             this.documento.setNome(this.arquivo.getFileName());
             this.documento.setTamanho(this.arquivo.getSize());
             this.documento.setArquivo(IOUtils.toByteArray(this.arquivo.getInputstream()));
+                            
+            if (this.documento.getTamanho() == 0) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "A solicitação deve ter algum arquivo anexo!", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                return;
+            }
+            
             this.solicitacaoDAO = new SolicitacaoDAO();
             this.solicitacaoDAO.salvar(this.novaSolicitacao);
             this.documento.setSolicitacao(this.novaSolicitacao);

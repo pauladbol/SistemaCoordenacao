@@ -26,7 +26,7 @@ and open the template in the editor.
                     <p:outputLabel for="disciplina" value="Disciplina:" />
                     <p:selectOneMenu id="disciplina" value="#{solicitacaoBean.novaSolicitacao.disciplina}" style="width:300px" >
                         <f:selectItem itemLabel="Selecione uma disciplina" itemValue="" />
-                        <f:selectItems value="#{solicitacaoBean.disciplinas}"/>
+                        <f:selectItems value="#{solicitacaoBean.disciplinas}" />
                         <f:converter converterId="disciplinaConverter"/>
                     </p:selectOneMenu>
                     <p:outputLabel for="anexo" value="Anexo:" />
