@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.Usuario;
+import org.hibernate.Session;
 import persistencia.UsuarioDAO;
 
 @ManagedBean(name="loginBean")
@@ -33,6 +34,7 @@ public class LoginBean {
     
     public String logout(){
         UsuarioDAO dao = new UsuarioDAO();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         this.usuario.setLogado(false);
         this.usuario = null;
         dao.terminaSessao();
