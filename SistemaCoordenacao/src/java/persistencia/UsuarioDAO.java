@@ -44,7 +44,7 @@ public class UsuarioDAO {
     }
     
     public List<Usuario> listaProfessoresByDisciplina(int disciplina){
-        return sessao.createSQLQuery("select * from usuario where id in (select disciplina_professor.id_professor from disciplina_professor where disciplina_professor.id_Disciplina = :disciplina);")
+        return sessao.createSQLQuery("select * from usuario where id in (select disciplina_professor.id_professor from disciplina_professor where disciplina_professor.id_Disciplina = 5);")
                 .list();
         }  
     

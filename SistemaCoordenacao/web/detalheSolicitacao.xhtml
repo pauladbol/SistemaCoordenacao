@@ -29,7 +29,7 @@ and open the template in the editor.
                     <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{solicitacaoBean.arquivoDownload}" />
                     </p:commandButton>
-                    <h:outputText id="observacao" value="#{solicitacaoBean.solicitacao.observacao}" rendered="#{solicitacaoBean.renderObservacao()}"/>
+                    <h:outputText id="observacao"  rendered="#{solicitacaoBean.renderObservacao()}"/>
                 </p:panelGrid>
                 <br/>
                     <p:commandButton value="Voltar" ajax="false" action="index"/> 
