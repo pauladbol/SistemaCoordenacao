@@ -7,12 +7,14 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import modelo.Usuario;
 
+
+
 @FacesConverter("professorConverter")
 public class ProfessorConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
             String value) {
-        if (value == null || value.equals("")) {
+        if (value == null) {
             return null;
         }
         SolicitacaoBean bean = context.getApplication()

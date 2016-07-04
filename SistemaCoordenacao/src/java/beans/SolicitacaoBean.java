@@ -49,7 +49,7 @@ public class SolicitacaoBean {
     private SolicitacaoDAO solicitacaoDAO;
     private DisciplinaDAO disciplinaDAO;
     private List<Disciplina> disciplinas;
-    private List<Usuario> professores;
+    private Usuario professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
     private Documento documento = new Documento();
@@ -58,13 +58,14 @@ public class SolicitacaoBean {
     private StreamedContent arquivoDownload;
     private final Usuario usuarioLogado;
     private UsuarioDAO userDao = new UsuarioDAO();
+    private List<Usuario> professorDisciplina;
     
     /*@ManagedProperty(value="#{loginBean}")
     private LoginBean loginBean;*/
     
     public SolicitacaoBean() {
         this.disciplinaDAO = new DisciplinaDAO();
-        this.disciplinas = getUsuarioLogado().getCurso().getDisciplinas();
+        //this.disciplinas = getUsuarioLogado().getCurso().getDisciplinas();
         this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.usuarioLogado = getUsuarioLogado();
     }
@@ -95,15 +96,16 @@ public class SolicitacaoBean {
     }
     
     public Usuario findProfessorByName(String name) {
-        for(Usuario professor : professores) {
-            if (professor.getNome().equals(name))
+        for(Usuario professor : professorDisciplina) {
+            if (professor. getNome().equals(name))
                 return professor;
         }
         return null;
     }
     
     public List<Usuario> listaProfessoresByDisciplina(){
-        return getUserDao().listaProfessoresByDisciplina(solicitacao.getDisciplina().getId());
+        this.professorDisciplina = getUserDao().listaProfessoresByDisciplina(solicitacao.getDisciplina().getId());
+        return getProfessorDisciplina();
     }
     
     public void criarSolicitacao() {
@@ -150,7 +152,7 @@ public class SolicitacaoBean {
 
     public void deferirSolicitacao(){
         solicitacao.setEstado(EstadoEnum.DEFERIDO.toString());
-        criarDocumentoFinal("C:\\" + solicitacao.getProtocolo() + solicitacao.getTipo() + solicitacao.getUsuario().getNome() + ".docx");
+        //criarDocumentoFinal("C:\\" + solicitacao.getProtocolo() + solicitacao.getTipo() + solicitacao.getUsuario().getNome() + ".docx");
 //        EmailService.enviarEmail(MensagemEnum.DEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
         salvar();
     }
@@ -401,7 +403,7 @@ public class SolicitacaoBean {
         return disciplinaDAO;
     }
     
-    public List<Usuario> getProfessores() {
+    public Usuario getProfessores() {
         return professores;
     }
 
@@ -467,4 +469,18 @@ public class SolicitacaoBean {
 //            System.out.println("ERRO");
 //        }
 //    }
+
+    /**
+     * @return the professorDisciplina
+     */
+    public List<Usuario> getProfessorDisciplina() {
+        return professorDisciplina;
+    }
+
+    /**
+     * @param professorDisciplina the professorDisciplina to set
+     */
+    public void setProfessorDisciplina(List<Usuario> professorDisciplina) {
+        this.professorDisciplina = professorDisciplina;
+    }
 }
