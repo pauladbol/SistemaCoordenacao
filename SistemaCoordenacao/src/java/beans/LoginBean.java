@@ -32,6 +32,8 @@ public class LoginBean {
         return "index";
     }
     
+    
+    
     public String logout(){
         UsuarioDAO dao = new UsuarioDAO();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
