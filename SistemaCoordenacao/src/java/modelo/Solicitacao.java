@@ -22,7 +22,7 @@ public class Solicitacao implements Serializable {
     private String protocolo;
     private String tipo;
     private String estado;
-    //private String observacao;
+    private String observacao;
     private String justificativa; 
     @ManyToOne
     @JoinColumn(name="disciplina")
@@ -78,12 +78,12 @@ public class Solicitacao implements Serializable {
         this.estado = estado;
     }
 
-    //public String getObservacao() {
-     //   return observacao;
-    //}
+    public String getObservacao() {
+        return observacao;
+    }
 
     public void setObservacao(String observacao) {
-        //this.observacao = observacao;
+        this.observacao = observacao;
     }
 
     public String getJustificativa() {

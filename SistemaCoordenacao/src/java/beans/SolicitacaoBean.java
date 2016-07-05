@@ -36,12 +36,6 @@ import persistencia.SolicitacaoDAO;
 import persistencia.UsuarioDAO;
 import service.EmailService;
 
-//import org.apache.poi.xwpf.usermodel.XWPFDocument;
-//import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-//import org.apache.poi.xwpf.usermodel.XWPFRun;
-//import java.io.File;
-//import java.io.FileOutputStream;
-
 @ManagedBean(name="solicitacaoBean")
 @SessionScoped
 public class SolicitacaoBean {
@@ -65,11 +59,18 @@ public class SolicitacaoBean {
     
     public SolicitacaoBean() {
         this.disciplinaDAO = new DisciplinaDAO();
-        //this.disciplinas = getUsuarioLogado().getCurso().getDisciplinas();
+        this.disciplinas = disciplinasCursoAluno();
         this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.usuarioLogado = getUsuarioLogado();
     }
     
+    public List<Disciplina> disciplinasCursoAluno(){
+        if (getUsuarioLogado().getTipo().equalsIgnoreCase("Aluno")){
+            return getUsuarioLogado().getCurso().getDisciplinas();
+        } else {
+            return disciplinaDAO.listar();
+        }
+    }
     public void salvar() {
         solicitacaoDAO = new SolicitacaoDAO();
         try {
@@ -152,7 +153,6 @@ public class SolicitacaoBean {
 
     public void deferirSolicitacao(){
         solicitacao.setEstado(EstadoEnum.DEFERIDO.toString());
-        //criarDocumentoFinal("C:\\" + solicitacao.getProtocolo() + solicitacao.getTipo() + solicitacao.getUsuario().getNome() + ".docx");
 //        EmailService.enviarEmail(MensagemEnum.DEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
         salvar();
     }
@@ -274,8 +274,8 @@ public class SolicitacaoBean {
     }
     
     public boolean renderObservacao() {
-        return (usuarioLogado.isCoordenador() && (solicitacao.getEstado().equals("Em pré-análise")
-                || solicitacao.getEstado().equals("Aprovado")));
+        return (usuarioLogado.isCoordenador() && (solicitacao.getEstado().equalsIgnoreCase("Em pré-análise")
+                || solicitacao.getEstado().equalsIgnoreCase("Aprovado")));
     }
     
     private String geradorProtocolo() {
@@ -293,11 +293,6 @@ public class SolicitacaoBean {
         protocolo += "000";
         protocolo += id;
         return protocolo;
-    }
-    
-    public void listaDisciplinas(){
-        this.disciplinaDAO = new DisciplinaDAO();
-        this.disciplinas = this.disciplinaDAO.listarDisciplinas(this.getUsuarioLogado().getCurso());
     }
     
     public String consultaSolicitacao(){
@@ -444,31 +439,6 @@ public class SolicitacaoBean {
     public void setUserDao(UsuarioDAO userDao) {
         this.userDao = userDao;
     }
-    
-//    public void criarDocumentoFinal(String fileName) {
-//        try {
-//                File file = new File(fileName);
-//                FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
-//
-//                XWPFDocument doc = new XWPFDocument();
-//                XWPFParagraph tempParagraph = doc.createParagraph();
-//                XWPFRun tempRun = tempParagraph.createRun();
-//
-//                tempRun.setText("A solicitação de " + solicitacao.getTipo() + " foi deferida./n Protocolo: " 
-//                                + solicitacao.getProtocolo() + "/n Aluno: " 
-//                                + solicitacao.getUsuario() + "/n /n Assinaturas: /n ____________________ /n /n ____________________");
-//                tempRun.setFontSize(12);
-//                doc.write(fos);
-//                fos.close();
-//                
-//                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Documento criado com sucesso!", "");
-//                FacesContext.getCurrentInstance().addMessage(null, message);
-//                System.out.println(file.getAbsolutePath()+ " criad!");
-//
-//        } catch (Exception e) {
-//            System.out.println("ERRO");
-//        }
-//    }
 
     /**
      * @return the professorDisciplina
