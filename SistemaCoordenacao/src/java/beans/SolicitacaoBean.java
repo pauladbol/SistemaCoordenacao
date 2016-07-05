@@ -219,14 +219,14 @@ public class SolicitacaoBean {
         }
         
         solicitacao.setEstado(EstadoEnum.PROVA.toString());
-   
-        EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
-        EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
+        novaSolicitacao = solicitacao;
+        //EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
+        //EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
-        msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
                                     "A data da prova foi marcada com sucesso!", "");
             context.addMessage(null, msg);
-        return "detalheSolicitacao";
+        return "index";
     }
     
     public boolean renderNovaSolicitacao() throws ParseException{
