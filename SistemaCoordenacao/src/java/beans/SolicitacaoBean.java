@@ -84,6 +84,7 @@ public class SolicitacaoBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    
     public Solicitacao carrega(){
         return solicitacaoDAO.carregar(novaSolicitacao.getId());
     }
@@ -178,14 +179,14 @@ public class SolicitacaoBean {
     public void aceitarSolicitacao(){
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg;
+        //EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         
         solicitacao.setEstado(EstadoEnum.ANALISE.toString());
-        msg = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+        novaSolicitacao = solicitacao;
+        salvar();
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
                                     "Professor selecionado com sucesso!", "");
             context.addMessage(null, msg);
-
-        EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
-        salvar();
     }
     
     public void aprovarSolicitacao(){
