@@ -103,5 +103,9 @@ public class Usuario implements Serializable {
         this.curso = curso;
     }
     
+    @Override
+    public String toString() {
+        return this.nome;
+    }
     
 }

@@ -43,7 +43,6 @@ public class SolicitacaoBean {
     private SolicitacaoDAO solicitacaoDAO;
     private DisciplinaDAO disciplinaDAO;
     private List<Disciplina> disciplinas;
-    private Usuario professores;
     private Solicitacao novaSolicitacao = new Solicitacao();
     private Solicitacao solicitacao;
     private Documento documento = new Documento();
@@ -62,6 +61,7 @@ public class SolicitacaoBean {
         this.disciplinas = disciplinasCursoAluno();
         this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.usuarioLogado = getUsuarioLogado();
+        this.professorDisciplina = new ArrayList<Usuario>();
     }
     
     public List<Disciplina> disciplinasCursoAluno(){
@@ -104,9 +104,10 @@ public class SolicitacaoBean {
         return null;
     }
     
+    
     public List<Usuario> listaProfessoresByDisciplina(){
         this.professorDisciplina = getUserDao().listaProfessoresByDisciplina(solicitacao.getDisciplina().getId());
-        return getProfessorDisciplina();
+        return professorDisciplina;
     }
     
     public void criarSolicitacao() {
@@ -396,10 +397,6 @@ public class SolicitacaoBean {
 
     public DisciplinaDAO getDisciplinaDAO() {
         return disciplinaDAO;
-    }
-    
-    public Usuario getProfessores() {
-        return professores;
     }
 
     public void setSolicitacoes(List<Solicitacao> solicitacoes) {

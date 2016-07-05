@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import modelo.Usuario;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -43,8 +44,13 @@ public class UsuarioDAO {
                 .list();
     }
     
+    
     public List<Usuario> listaProfessoresByDisciplina(int disciplina){
-        return sessao.createSQLQuery("select * from usuario where id in (select disciplina_professor.id_professor from disciplina_professor where disciplina_professor.id_Disciplina = 5);")
+        return sessao.createSQLQuery(
+        "select {u.*} from usuario u where id in (select disciplina_professor.id_professor from disciplina_professor where disciplina_professor.id_Disciplina = "+disciplina+");"
+        )
+                .addEntity("u", Usuario.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
         }  
     

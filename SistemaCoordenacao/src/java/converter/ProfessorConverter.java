@@ -5,6 +5,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import modelo.Disciplina;
 import modelo.Usuario;
 
 
@@ -24,11 +25,12 @@ public class ProfessorConverter implements Converter{
         return professor;
     }
  
+    
     @Override
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
         String label = null;
-        if (value instanceof Usuario) {
+        if (value instanceof Object) {
             label = value.toString();
         }
         return label;
