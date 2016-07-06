@@ -53,13 +53,9 @@ public class SolicitacaoBean {
     private UsuarioDAO userDao = new UsuarioDAO();
     private List<Usuario> professorDisciplina;
     
-    /*@ManagedProperty(value="#{loginBean}")
-    private LoginBean loginBean;*/
-    
     public SolicitacaoBean() {
         this.disciplinaDAO = new DisciplinaDAO();
         this.disciplinas = disciplinasCursoAluno();
-        this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.usuarioLogado = getUsuarioLogado();
         this.professorDisciplina = new ArrayList<Usuario>();
     }
@@ -83,6 +79,19 @@ public class SolicitacaoBean {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    public void salvar(Solicitacao solicitacao) {
+        solicitacaoDAO = new SolicitacaoDAO();
+        try {
+            solicitacaoDAO.salvar(solicitacao);            
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+            return;
+        }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
     
     
     public Solicitacao carrega(){
@@ -112,38 +121,44 @@ public class SolicitacaoBean {
     }
     
     public void criarSolicitacao() {
+        if (this.arquivo.getSize() == 0) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "A solicitação deve ter algum arquivo anexo!", "");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+        }
+        
+        this.novaSolicitacao.setProtocolo(geradorProtocolo());
         this.novaSolicitacao.setEstado(EstadoEnum.ENTREGUE.toString());
         this.novaSolicitacao.setUsuario(getUsuarioLogado());
-        DocumentoDAO documentoDAO = new DocumentoDAO();
         this.novaSolicitacao.setCoordenador(getUsuarioLogado().getCurso().getCoordenador());
         
+        final SolicitacaoDAO dao = new SolicitacaoDAO();
+        dao.salvar(this.novaSolicitacao);
+        
         try {
-            this.documento.setNome(this.arquivo.getFileName());
-            this.documento.setTamanho(this.arquivo.getSize());
-            this.documento.setArquivo(IOUtils.toByteArray(this.arquivo.getInputstream()));
-            
-            if (this.documento.getTamanho() == 0) {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "A solicitação deve ter algum arquivo anexo!", "");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-                return;
-            }
-            
-            this.solicitacaoDAO = new SolicitacaoDAO();
-            this.solicitacaoDAO.salvar(this.novaSolicitacao);
-            this.documento.setSolicitacao(this.novaSolicitacao);
-            documentoDAO.salvar(this.documento); 
+             salvarDocumento();
         } catch (IOException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ""));
             return;
         }
+        
         //EmailService.enviarEmail(MensagemEnum.ENTREGUE_ALUNO.toString(), novaSolicitacao.getUsuario().getEmail(), novaSolicitacao.getProtocolo());
         //EmailService.enviarEmail(MensagemEnum.ENTREGUE_CRE.toString(), "cre123cre@gmail.com", novaSolicitacao.getProtocolo());
         
-        this.novaSolicitacao = new Solicitacao();
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
        
+    }
+    
+    public void salvarDocumento() throws IOException{
+        this.documento.setNome(this.arquivo.getFileName());
+        this.documento.setTamanho(this.arquivo.getSize());
+        this.documento.setArquivo(IOUtils.toByteArray(this.arquivo.getInputstream()));
+        this.documento.setSolicitacao(this.novaSolicitacao);
+
+        DocumentoDAO documentoDAO = new DocumentoDAO();
+        documentoDAO.salvar(this.documento);
     }
     
     public void indeferirSolicitacao(){
@@ -189,18 +204,19 @@ public class SolicitacaoBean {
             context.addMessage(null, msg);
     }
     
-    public void aprovarSolicitacao(){
+    public String aprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.APROVADO.toString());
 
     //    EmailService.enviarEmail(MensagemEnum.APROVADO.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
-        salvar();
+        salvar(this.solicitacao);
+        return "consultaSolicitacao";
     }
     
     public void reprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.REPROVADO.toString());
   
     //    EmailService.enviarEmail(MensagemEnum.REPROVADO.toString(), solicitacao.getCoordenador.getEmail(), solicitacao.getProtocolo());
-        salvar();
+        salvar(this.solicitacao);
     }
     
     public String marcaProvaSolicitacao() throws ParseException{
@@ -332,7 +348,7 @@ public class SolicitacaoBean {
     
     private void consultaSolicitacaoProfessor(){
         this.solicitacaoDAO = new SolicitacaoDAO();
-        this.solicitacoes = this.solicitacaoDAO.listar(this.usuarioLogado, "Em análise");
+        this.solicitacoes = this.solicitacaoDAO.listar(this.usuarioLogado, "Em análise", "Aguardando Prova");
     }
     
     private void consultaSolicitacaoCoordenador(){
