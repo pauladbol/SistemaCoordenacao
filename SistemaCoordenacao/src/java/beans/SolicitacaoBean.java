@@ -280,6 +280,9 @@ public class SolicitacaoBean {
                 || solicitacao.getEstado().equalsIgnoreCase("Aprovado")));
     }
     
+    public boolean renderJustificativa(){
+        return (usuarioLogado.getTipo().equalsIgnoreCase("Aluno") && solicitacao.getEstado().equalsIgnoreCase("Indeferido"));
+    }
     private String geradorProtocolo() {
         solicitacaoDAO = new SolicitacaoDAO();
         int id = solicitacaoDAO.findUltimoId();

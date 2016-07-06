@@ -25,14 +25,18 @@ and open the template in the editor.
                     <h:outputText id="tipo" value="#{solicitacaoBean.solicitacao.tipo}"/>
                     <p:outputLabel for="disciplina" value="Disciplina:" />
                     <h:outputText id="disciplina" value="#{solicitacaoBean.solicitacao.disciplina.nome}"/>
+                    <p:outputLabel for="observacao" value="Observacao:" rendered="#{solicitacaoBean.renderObservacao()}"/>
+                    <h:outputText id="observacao" value="#{solicitacaoBean.solicitacao.observacao}" rendered="#{solicitacaoBean.renderObservacao()}"/>
+                    <p:outputLabel for="justificativa" value="Justificativa:" rendered="#{solicitacaoBean.renderJustificativa()}"/>
+                    <h:outputText id="justificativa" value="#{solicitacaoBean.solicitacao.justificativa}" rendered="#{solicitacaoBean.renderJustificativa()}"/>
                     <p:outputLabel value="Anexo:" />
                     <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{solicitacaoBean.arquivoDownload}" />
                     </p:commandButton>
-                    <h:outputText id="observacao"  rendered="#{solicitacaoBean.renderObservacao()}"/>
+                    
                 </p:panelGrid>
                 <br/>
-                    <p:commandButton value="Voltar" ajax="false" action="index"/> 
+                    <p:commandButton value="Voltar" ajax="false" action="consultaSolicitacao"/> 
                     <p:commandButton value="Encaminhar" ajax="false" action="encaminharSolicitacao" rendered="#{solicitacaoBean.renderEncaminharSolicitacao()}"/> <!--CRE-->
                     <p:commandButton value="Aceitar" ajax="false" action="listarProfessores" actionListener="#{solicitacaoBean.listaProfessoresByDisciplina()}" rendered="#{solicitacaoBean.renderListarProfessores()}"/> <!--Coordenador--> 
                     <p:commandButton value="Deferir" ajax="false" action="deferirSolicitacao" rendered="#{solicitacaoBean.renderDeferirSolicitacao()}"/> <!--Coordenador-->
