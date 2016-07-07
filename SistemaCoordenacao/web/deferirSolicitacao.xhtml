@@ -19,7 +19,7 @@ and open the template in the editor.
                 <p:panelGrid columns="2">
                     <p>Ao clicar no botão Deferir Solicitação, um documento final para ser assinado será criado na sua pasta Documentos.</p>            
                     <p:commandButton value="Voltar" ajax="false" action="detalheSolicitacao"/>  
-                    <p:commandButton value="Deferir Solicitação" ajax="false" actionListener="#{solicitacaoBean.deferirSolicitacao()}" action="consultaSolicitacao"/> 
+                    <p:commandButton value="Deferir Solicitação" ajax="false" action="#{solicitacaoBean.deferirSolicitacao()}"/> 
                 </p:panelGrid>
             </h:form>
         </ui:define>

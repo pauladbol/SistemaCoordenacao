@@ -22,40 +22,40 @@ import javax.mail.internet.MimeMessage;
 public class EmailService {
     public static void enviarEmail(String mensagem_email, String email, String protocolo){
         Properties props = new Properties();
-            /** Parâmetros de conexão com servidor Gmail */
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.socketFactory.port", "465");
-            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.port", "465");
+        /** Parâmetros de conexão com servidor Gmail */
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-            Session session = Session.getDefaultInstance(props,
-                        new javax.mail.Authenticator() {
-                             protected PasswordAuthentication getPasswordAuthentication() 
-                             {
-                                   return new PasswordAuthentication("sistemasilicitacoes@gmail.com", "sistema123");
-                             }
-                        });
+        Session session = Session.getDefaultInstance(props,
+                    new javax.mail.Authenticator() {
+                         protected PasswordAuthentication getPasswordAuthentication() 
+                         {
+                               return new PasswordAuthentication("sistemasilicitacoes@gmail.com", "sistema123");
+                         }
+                    });
 
-            /** Ativa Debug para sessão */
-            session.setDebug(true);
+        /** Ativa Debug para sessão */
+        session.setDebug(true);
 
-            try {
+        try {
 
-                  Message message = new MimeMessage(session);
-                  message.setFrom(new InternetAddress("sistemasilicitacoes@gmail.com")); //Remetente
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("sistemasilicitacoes@gmail.com")); //Remetente
 
-                  Address[] toUser = InternetAddress //Destinatário(s)
-                             .parse(email);  
+            Address[] toUser = InternetAddress //Destinatário(s)
+                       .parse(email);  
 
-                  message.setRecipients(Message.RecipientType.TO, toUser);
-                  message.setSubject("Solicitação");//Assunto
-                  message.setText(mensagem_email + protocolo);
-                  /**Método para enviar a mensagem criada*/
-                  Transport.send(message);
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject("Solicitação");//Assunto
+            message.setText(mensagem_email + protocolo);
+            /**Método para enviar a mensagem criada*/
+            Transport.send(message);
 
-             } catch (MessagingException e) {
-                  throw new RuntimeException(e);
-            }
-      }
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

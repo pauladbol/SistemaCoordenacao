@@ -142,13 +142,13 @@ public class SolicitacaoBean {
             return;
         }
         
-        //EmailService.enviarEmail(MensagemEnum.ENTREGUE_ALUNO.toString(), novaSolicitacao.getUsuario().getEmail(), novaSolicitacao.getProtocolo());
-        //EmailService.enviarEmail(MensagemEnum.ENTREGUE_CRE.toString(), "cre123cre@gmail.com", novaSolicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.ENTREGUE_ALUNO.toString(), novaSolicitacao.getUsuario().getEmail(), novaSolicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.ENTREGUE_CRE.toString(), "cre123cre@gmail.com", novaSolicitacao.getProtocolo());
         
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
-       
+        this.novaSolicitacao = new Solicitacao();
     }
     
     public void salvarDocumento() throws IOException{
@@ -168,10 +168,11 @@ public class SolicitacaoBean {
         salvar();
     }
 
-    public void deferirSolicitacao(){
+    public String deferirSolicitacao(){
         solicitacao.setEstado(EstadoEnum.DEFERIDO.toString());
-//        EmailService.enviarEmail(MensagemEnum.DEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
-        salvar();
+        EmailService.enviarEmail(MensagemEnum.DEFERIDO.toString(), "cre123cre@gmail.com", solicitacao.getProtocolo());
+        salvar(this.solicitacao);
+        return "consultaSolicitacao";
     }
     
     public String avaliarDocumentosSolicitacao(){
@@ -187,14 +188,14 @@ public class SolicitacaoBean {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitação salva com sucesso!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
-       // EmailService.enviarEmail(MensagemEnum.PRE_ANALISE.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.PRE_ANALISE.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
         return "consultaSolicitacao";
     }
     
     public void aceitarSolicitacao(){
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg;
-        //EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.ANALISE.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         
         solicitacao.setEstado(EstadoEnum.ANALISE.toString());
         novaSolicitacao = solicitacao;
@@ -207,7 +208,7 @@ public class SolicitacaoBean {
     public String aprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.APROVADO.toString());
 
-    //    EmailService.enviarEmail(MensagemEnum.APROVADO.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.APROVADO.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
         salvar(this.solicitacao);
         return "consultaSolicitacao";
     }
@@ -215,7 +216,7 @@ public class SolicitacaoBean {
     public void reprovarSolicitacao(){
         solicitacao.setEstado(EstadoEnum.REPROVADO.toString());
   
-    //    EmailService.enviarEmail(MensagemEnum.REPROVADO.toString(), solicitacao.getCoordenador.getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.REPROVADO.toString(), solicitacao.getCoordenador().getEmail(), solicitacao.getProtocolo());
         salvar(this.solicitacao);
     }
     
@@ -236,8 +237,8 @@ public class SolicitacaoBean {
         
         solicitacao.setEstado(EstadoEnum.PROVA.toString());
         novaSolicitacao = solicitacao;
-        //EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
-        //EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.PROVA_ALUNO.toString(), solicitacao.getUsuario().getEmail(), solicitacao.getProtocolo());
+        EmailService.enviarEmail(MensagemEnum.PROVA_PROFESSOR.toString(), solicitacao.getProfessor().getEmail(), solicitacao.getProtocolo());
         salvar();
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
                                     "A data da prova foi marcada com sucesso!", "");
